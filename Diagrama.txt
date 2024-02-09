@@ -1,0 +1,60 @@
++---------------------------------------+
+|           Atendimento                 |
++---------------------------------------+
+| - id: Long                            |
+| - paciente: String                    |
+| - clinica: String                     |
+| - data: Date                          |
+| - exames: List<Exame>                 |
+| - formaPagamento: FormaPagamento      |
+| - valorVeterinarioRecebe: double      |
++---------------------------------------+
+| + getId(): Long                       |
+| + getPaciente(): String               |
+| + getClinica(): String                |
+| + getData(): Date                     |
+| + getExames(): List<Exame>            |
+| + getFormaPagamento(): FormaPagamento |
+| + calcularValorFinal(): double        |
++---------------------------------------+
+
++---------------------------------------+
+|                Exame                  |
++---------------------------------------+
+| - id: Long                            |
+| - tipoNome: String                    |
+| - turno: Turno                        |
+| - descontoSoundVet: double            |
+| - descontoNF: double                  |
++---------------------------------------+
+| + getId(): Long                       |
+| + getTipoNome(): String               |
+| + getTurno(): Turno                   |
+| + getDescontoSoundVet(): double       |
+| + getDescontoNF(): double             |
+| + calcularValorExame(): double        |
++---------------------------------------+
+
++---------------------------------------+
+|                Turno                  |
++---------------------------------------+
+| - id: Long                            |
+| - descricao: String                   |
+| - valor: double                       |
++---------------------------------------+
+| + getId(): Long                       |
+| + getDescricao(): String              |
+| + getValor(): double                  |
++---------------------------------------+
+
++---------------------------------------+
+|           FormaPagamento              |
++---------------------------------------+
+| - id: Long                            |
+| - descricao: String                   |
++---------------------------------------+
+| + getId(): Long                       |
+| + getDescricao(): String              |
++---------------------------------------+
+
+
