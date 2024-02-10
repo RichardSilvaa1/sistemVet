@@ -6,6 +6,9 @@ public class TurnoExame{
     private String descricao;
     private Exame tipoExame;
     private double valorExame;
+
+    public TurnoExame(){}
+
     public TurnoExame(long id, String descricao, double valorExame) {
         this.id = id;
         this.descricao = descricao;
