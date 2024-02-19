@@ -2,20 +2,27 @@
 |             Atendimento               |
 +---------------------------------------+
 | - id: Long                           |
-| - paciente: String                   |
-| - clinica: String                    |
-| - data: Date                         |
+| - paciente: String 
+    data: LocalDateTime                  |
+| - clinica:  Clinica                                |
 | - exames: List<Exame>                |
 | - formaPagamento: FormaPagamento     |
-| - valorVeterinarioRecebe: double     |
+| - valorVeterinarioRecebe: double    |
 +---------------------------------------+
 | + getId(): Long                      |
 | + getPaciente(): String              |
-| + getClinica(): String               |
-| + getData(): Date                    |
+| + getClinica(): Clinica              |
+| + getData(): LocalDateTime           |
 | + getExames(): List<Exame>           |
 | + getFormaPagamento(): FormaPagamento|
-| + calcularValorFinal(): double       |
+| + getValorVeterinarioRecebe(): double|
+| + setId(Long id): void               |
+| + setPaciente(String paciente): void |
+| + setClinica(Clinica clinica): void  |
+| + setData(LocalDateTime data): void  |
+| + setExames(List<Exame> exames): void|
+| + setFormaPagamento(FormaPagamento formaPagamento): void|
+| + setValorVeterinarioRecebe(double valor): void|
 +---------------------------------------+
 
 +---------------------------------------+
@@ -24,15 +31,31 @@
 | - id: Long                           |
 | - tipoExame: String                  |
 | - turno: Turno                       |
-| - descontoSoundVet: double           |
-| - descontoNF: double                 |
+| - descontos: List<Desconto>          |
+| - valorExame: double                 |
 +---------------------------------------+
 | + getId(): Long                      |
 | + getTipoExame(): String             |
 | + getTurno(): Turno                  |
-| + getDescontoSoundVet(): double      |
-| + getDescontoNF(): double            |
-| + calcularValorExame(): double      |
+| + getDescontos(): List<Desconto>    |
+| + getValorExame(): double           |
+| + setId(Long id): void               |
+| + setTipoExame(String tipoExame): void |
+| + setTurno(Turno turno): void       |
+| + setDescontos(List<Desconto> descontos): void |
+| + setValorExame(double valorExame): void |
++---------------------------------------+
+
++---------------------------------------+
+|              Clinica                  |
++---------------------------------------+
+| - id: Long                           |
+| - nomeClinica: String                |
++---------------------------------------+
+| + getId(): Long                      |
+| + getNomeClinica(): String           |
+| + setId(Long id): void               |
+| + setNomeClinica(String nomeClinica): void |
 +---------------------------------------+
 
 +---------------------------------------+
@@ -40,19 +63,40 @@
 +---------------------------------------+
 | - id: Long                           |
 | - descricao: String                  |
-| - valor: double                      |
 +---------------------------------------+
 | + getId(): Long                      |
 | + getDescricao(): String             |
-| + getValor(): double                 |
+| + setId(Long id): void               |
+| + setDescricao(String descricao): void |
 +---------------------------------------+
 
 +---------------------------------------+
 |           FormaPagamento              |
 +---------------------------------------+
-|                                       |
+| - id: Long                           |
+| - tipoPagamento: String              |
 +---------------------------------------+
-|            Métodos se necessário     |
+| + getId(): Long                      |
+| + getTipoPagamento(): String         |
+| + setId(Long id): void               |
+| + setTipoPagamento(String tipoPagamento): void |
++---------------------------------------+
+
++---------------------------------------+
+|              Desconto                 |
++---------------------------------------+
+| - id: Long                           |
+| - tipo: String                       |
+| - valor: double                      |
++---------------------------------------+
+| + getId(): Long                      |
+| + getTipo(): String                  |
+| + getValor(): double                 |
+| + setId(Long id): void               |
+| + setTipo(String tipo): void        |
+| + setValor(double valor): void      |
++---------------------------------------+
+    |
 +---------------------------------------+
 
 
