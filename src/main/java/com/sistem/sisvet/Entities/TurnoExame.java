@@ -2,43 +2,60 @@ package com.sistem.sisvet.Entities;
 
 public class TurnoExame{
 
-    private long id;
+    private Long id;
     private String descricao;
-    private Exame tipoExame;
-    private double valorExame;
-
-    public TurnoExame(){}
-
-    public TurnoExame(long id, String descricao, double valorExame) {
+    
+    public TurnoExame(Long id, String descricao) {
         this.id = id;
         this.descricao = descricao;
-        this.valorExame = valorExame;
     }
-    public long getId() {
+
+    public Long getId() {
         return id;
     }
-    public void setId(long id) {
+
+    public void setId(Long id) {
         this.id = id;
     }
+
     public String getDescricao() {
         return descricao;
     }
+
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    public Exame getTipoExame() {
-        return tipoExame;
-    }
-    public void setTipoExame(Exame tipoExame) {
-        this.tipoExame = tipoExame;
-    }
-    public double getValorExame() {
-        return valorExame;
-    }
-    public void setValorExame(double valorExame) {
-        this.valorExame = valorExame;
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
+        return result;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        TurnoExame other = (TurnoExame) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (descricao == null) {
+            if (other.descricao != null)
+                return false;
+        } else if (!descricao.equals(other.descricao))
+            return false;
+        return true;
+    }
 
-    
+        
 }

@@ -7,13 +7,20 @@ public class Exame {
     private String tipoExame;
     private double descontoSound;
     private double descontoNf;
+    private double descontoAparelho;
+    private double valorExame;
     private List<TurnoExame> turnoExame;
     
-    public Exame(Long id, String tipoExame, double descontoSound, double descontoNf, List<TurnoExame> turnoExame) {
+    
+
+    public Exame(Long id, String tipoExame, double descontoSound, double descontoNf, double descontoAparelho,
+            double valorExame, List<TurnoExame> turnoExame) {
         this.id = id;
         this.tipoExame = tipoExame;
         this.descontoSound = descontoSound;
         this.descontoNf = descontoNf;
+        this.descontoAparelho = descontoAparelho;
+        this.valorExame = valorExame;
         this.turnoExame = turnoExame;
     }
 
@@ -49,6 +56,22 @@ public class Exame {
         this.descontoNf = descontoNf;
     }
 
+    public double getDescontoAparelho() {
+        return descontoAparelho;
+    }
+
+    public void setDescontoAparelho(double descontoAparelho) {
+        this.descontoAparelho = descontoAparelho;
+    }
+
+    public double getValorExame() {
+        return valorExame;
+    }
+
+    public void setValorExame(double valorExame) {
+        this.valorExame = valorExame;
+    }
+
     public List<TurnoExame> getTurnoExame() {
         return turnoExame;
     }
@@ -56,19 +79,5 @@ public class Exame {
     public void setTurnoExame(List<TurnoExame> turnoExame) {
         this.turnoExame = turnoExame;
     }
-    
-    // Método para calcular o valor do exame com base nos descontos e valores do turno
-    public double calcularValorExame() {
-        double valorExame = 0.0;
-        if (turnoExame != null && !turnoExame.isEmpty()) {
-            TurnoExame turno = turnoExame.get(0); // Supondo que cada exame tenha apenas um turno
-            double valorTurno = turno.getValorExame();
-            valorExame += valorTurno;
 
-            // Aplicar descontos
-            valorExame *= (1 - descontoSound);
-            valorExame *= (1 - descontoNf);
-        }
-        return valorExame;
-    }
 }
