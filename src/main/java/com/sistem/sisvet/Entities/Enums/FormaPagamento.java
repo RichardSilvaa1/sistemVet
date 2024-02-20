@@ -1,4 +1,4 @@
-package com.sistem.sisvet.Entities;
+package com.sistem.sisvet.Entities.Enums;
 
 public class FormaPagamento {
  

@@ -2,24 +2,25 @@
 |             Atendimento               |
 +---------------------------------------+
 | - id: Long                           |
-| - paciente: String 
-    data: LocalDateTime                  |
-| - clinica:  Clinica                                |
+| - paciente: String                   |
+| - data: LocalDateTime                |
+| - clinica: Clinica                   |
 | - exames: List<Exame>                |
-| - formaPagamento: FormaPagamento     |
+| - formaPagamento: FormaPagamento  
+| - valorAtendimento: double   |
 | - valorVeterinarioRecebe: double    |
 +---------------------------------------+
 | + getId(): Long                      |
 | + getPaciente(): String              |
-| + getClinica(): Clinica              |
 | + getData(): LocalDateTime           |
+| + getClinica(): Clinica              |
 | + getExames(): List<Exame>           |
 | + getFormaPagamento(): FormaPagamento|
 | + getValorVeterinarioRecebe(): double|
 | + setId(Long id): void               |
 | + setPaciente(String paciente): void |
-| + setClinica(Clinica clinica): void  |
 | + setData(LocalDateTime data): void  |
+| + setClinica(Clinica clinica): void  |
 | + setExames(List<Exame> exames): void|
 | + setFormaPagamento(FormaPagamento formaPagamento): void|
 | + setValorVeterinarioRecebe(double valor): void|
@@ -59,35 +60,20 @@
 +---------------------------------------+
 
 +---------------------------------------+
-|               Turno                   |
-+---------------------------------------+
-| - id: Long                           |
-| - descricao: String                  |
-+---------------------------------------+
-| + getId(): Long                      |
-| + getDescricao(): String             |
-| + setId(Long id): void               |
-| + setDescricao(String descricao): void |
-+---------------------------------------+
-
-+---------------------------------------+
 |           FormaPagamento              |
 +---------------------------------------+
-| - id: Long                           |
-| - tipoPagamento: String              |
-+---------------------------------------+
-| + getId(): Long                      |
-| + getTipoPagamento(): String         |
-| + setId(Long id): void               |
-| + setTipoPagamento(String tipoPagamento): void |
+| - DINHEIRO                         |
+| - PIX                    |
+| - NO FARO                      |
+| - PIXVET                             |
 +---------------------------------------+
 
 +---------------------------------------+
 |              Desconto                 |
 +---------------------------------------+
 | - id: Long                           |
-| - tipo: String                       |
-| - valor: double                      |
+| - tipoDesc: String                       |
+| - valorDesc: double                      |
 +---------------------------------------+
 | + getId(): Long                      |
 | + getTipo(): String                  |
@@ -96,7 +82,13 @@
 | + setTipo(String tipo): void        |
 | + setValor(double valor): void      |
 +---------------------------------------+
-    |
+
++---------------------------------------+
+|               Turno                   |
++---------------------------------------+
+| - MANHA                              |
+| - TARDE                              |
+| - NOITE                              |
 +---------------------------------------+
 
 

@@ -2,6 +2,8 @@ package com.sistem.sisvet.Entities;
 
 import java.util.List;
 
+import com.sistem.sisvet.Entities.Enums.FormaPagamento;
+
 public class Atendimento {
     private Long id;
     private String paciente;
@@ -9,17 +11,22 @@ public class Atendimento {
     private String data;
     private List<Exame> exames;
     private FormaPagamento formaPagamento;
+    private double valorAtendimento;
     private double valorVeterinarioRecebe;
+
+    
     public Atendimento(Long id, String paciente, Clinica clinica, String data, List<Exame> exames,
-            FormaPagamento formaPagamento, double valorVeterinarioRecebe) {
+            FormaPagamento formaPagamento, double valorAtendimento, double valorVeterinarioRecebe) {
         this.id = id;
         this.paciente = paciente;
         this.clinica = clinica;
         this.data = data;
         this.exames = exames;
         this.formaPagamento = formaPagamento;
+        this.valorAtendimento = valorAtendimento;
         this.valorVeterinarioRecebe = valorVeterinarioRecebe;
     }
+    
     public Long getId() {
         return id;
     }
@@ -56,6 +63,12 @@ public class Atendimento {
     public void setFormaPagamento(FormaPagamento formaPagamento) {
         this.formaPagamento = formaPagamento;
     }
+    public double getValorAtendimento() {
+        return valorAtendimento;
+    }
+    public void setValorAtendimento(double valorAtendimento) {
+        this.valorAtendimento = valorAtendimento;
+    }
     public double getValorVeterinarioRecebe() {
         return valorVeterinarioRecebe;
     }
@@ -63,6 +76,32 @@ public class Atendimento {
         this.valorVeterinarioRecebe = valorVeterinarioRecebe;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Atendimento other = (Atendimento) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
+    }
+
+    
     
 
 

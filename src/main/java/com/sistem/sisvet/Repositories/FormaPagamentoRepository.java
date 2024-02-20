@@ -4,8 +4,7 @@ package com.sistem.sisvet.Repositories;
 // Importação da interface JpaRepository do Spring Data JPA
 import org.springframework.data.jpa.repository.JpaRepository;
 
-// Importação da entidade FormaPagamento
-import com.sistem.sisvet.Entities.FormaPagamento;
+import com.sistem.sisvet.Entities.Enums.FormaPagamento;
 
 // Declaração da interface FormaPagamentoRepository que estende JpaRepository
 public interface FormaPagamentoRepository extends JpaRepository<FormaPagamento, Long> {
