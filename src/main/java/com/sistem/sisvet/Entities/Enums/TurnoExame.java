@@ -1,61 +1,30 @@
 package com.sistem.sisvet.Entities.Enums;
 
-public class TurnoExame{
+public enum TurnoExame {
+    MANHA(1, "Manhã"),                     // Definição do primeiro valor do enum: MANHA com código 1 e descrição "Manhã"
+    TARDE(2, "Tarde"),                     // Definição do segundo valor do enum: TARDE com código 2 e descrição "Tarde"
+    NOITE(3, "Noite"),                     // Definição do terceiro valor do enum: NOITE com código 3 e descrição "Noite"
+    COMERCIAL(4, "Comercial"),             // Definição do quarto valor do enum: COMERCIAL com código 4 e descrição "Comercial"
+    PLANTAO(5, "Plantão"),                 // Definição do quinto valor do enum: PLANTAO com código 5 e descrição "Plantão"
+    SABADO(6, "Sábado"),                   // Definição do sexto valor do enum: SABADO com código 6 e descrição "Sábado"
+    PLANTAO_MEIA_NOITE(7, "Plantão Meia Noite"); // Definição do sétimo valor do enum: PLANTAO_MEIA_NOITE com código 7 e descrição "Plantão Meia Noite"
 
-    private Long id;
-    private String descricao;
-    
-    public TurnoExame(Long id, String descricao) {
-        this.id = id;
-        this.descricao = descricao;
+    private final int codigo;              // Declaração do campo para armazenar o código do turno
+    private final String descricao;        // Declaração do campo para armazenar a descrição do turno
+
+    // Construtor do enum que recebe um código e uma descrição e atribui aos campos correspondentes
+    TurnoExame(int codigo, String descricao) {
+        this.codigo = codigo;               // Atribuição do código recebido ao campo código
+        this.descricao = descricao;         // Atribuição da descrição recebida ao campo descrição
     }
 
-    public Long getId() {
-        return id;
+    // Método público para obter o código do turno
+    public int getCodigo() {
+        return codigo;                      // Retorna o código do turno
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+    // Método público para obter a descrição do turno
     public String getDescricao() {
-        return descricao;
+        return descricao;                   // Retorna a descrição do turno
     }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        TurnoExame other = (TurnoExame) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        if (descricao == null) {
-            if (other.descricao != null)
-                return false;
-        } else if (!descricao.equals(other.descricao))
-            return false;
-        return true;
-    }
-
-        
 }

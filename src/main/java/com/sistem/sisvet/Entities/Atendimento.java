@@ -1,21 +1,26 @@
 package com.sistem.sisvet.Entities;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.sistem.sisvet.Entities.Enums.FormaPagamento;
 
-public class Atendimento {
+public class Atendimento implements Serializable {
+	private static final long serialVersionUID = 1L; 
+    
     private Long id;
     private String paciente;
     private Clinica clinica;
-    private String data;
+    private LocalDateTime data;
     private List<Exame> exames;
     private FormaPagamento formaPagamento;
     private double valorAtendimento;
     private double valorVeterinarioRecebe;
 
     
-    public Atendimento(Long id, String paciente, Clinica clinica, String data, List<Exame> exames,
+    
+    public Atendimento(Long id, String paciente, Clinica clinica, LocalDateTime data, List<Exame> exames,
             FormaPagamento formaPagamento, double valorAtendimento, double valorVeterinarioRecebe) {
         this.id = id;
         this.paciente = paciente;
@@ -26,55 +31,110 @@ public class Atendimento {
         this.valorAtendimento = valorAtendimento;
         this.valorVeterinarioRecebe = valorVeterinarioRecebe;
     }
+
     
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+
+
+
     public Long getId() {
         return id;
     }
+
+
+
     public void setId(Long id) {
         this.id = id;
     }
+
+
+
     public String getPaciente() {
         return paciente;
     }
+
+
+
     public void setPaciente(String paciente) {
         this.paciente = paciente;
     }
+
+
+
     public Clinica getClinica() {
         return clinica;
     }
+
+
+
     public void setClinica(Clinica clinica) {
         this.clinica = clinica;
     }
-    public String getData() {
+
+
+
+    public LocalDateTime getData() {
         return data;
     }
-    public void setData(String data) {
+
+
+
+    public void setData(LocalDateTime data) {
         this.data = data;
     }
+
+
+
     public List<Exame> getExames() {
         return exames;
     }
+
+
+
     public void setExames(List<Exame> exames) {
         this.exames = exames;
     }
+
+
+
     public FormaPagamento getFormaPagamento() {
         return formaPagamento;
     }
+
+
+
     public void setFormaPagamento(FormaPagamento formaPagamento) {
         this.formaPagamento = formaPagamento;
     }
+
+
+
     public double getValorAtendimento() {
         return valorAtendimento;
     }
+
+
+
     public void setValorAtendimento(double valorAtendimento) {
         this.valorAtendimento = valorAtendimento;
     }
+
+
+
     public double getValorVeterinarioRecebe() {
         return valorVeterinarioRecebe;
     }
+
+
+
     public void setValorVeterinarioRecebe(double valorVeterinarioRecebe) {
         this.valorVeterinarioRecebe = valorVeterinarioRecebe;
     }
+
+
 
     @Override
     public int hashCode() {
