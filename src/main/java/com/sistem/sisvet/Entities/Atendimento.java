@@ -15,21 +15,21 @@ public class Atendimento implements Serializable {
     private LocalDateTime data;
     private List<Exame> exames;
     private FormaPagamento formaPagamento;
-    private double valorAtendimento;
-    private double valorVeterinarioRecebe;
+    private double valorTotalAtendimento;
+    private double valorTotalVeterinarioRecebe;
 
     
     
     public Atendimento(Long id, String paciente, Clinica clinica, LocalDateTime data, List<Exame> exames,
-            FormaPagamento formaPagamento, double valorAtendimento, double valorVeterinarioRecebe) {
+            FormaPagamento formaPagamento, double valorTotalAtendimento, double valorTotalVeterinarioRecebe) {
         this.id = id;
         this.paciente = paciente;
         this.clinica = clinica;
         this.data = data;
         this.exames = exames;
         this.formaPagamento = formaPagamento;
-        this.valorAtendimento = valorAtendimento;
-        this.valorVeterinarioRecebe = valorVeterinarioRecebe;
+        this.valorTotalAtendimento = valorTotalAtendimento;
+        this.valorTotalVeterinarioRecebe = valorTotalVeterinarioRecebe;
     }
 
     
@@ -112,26 +112,26 @@ public class Atendimento implements Serializable {
 
 
 
-    public double getValorAtendimento() {
-        return valorAtendimento;
+    public double getvalorTotalAtendimento() {
+        return valorTotalAtendimento;
     }
 
 
 
-    public void setValorAtendimento(double valorAtendimento) {
-        this.valorAtendimento = valorAtendimento;
+    public void setvalorTotalAtendimento(double valorTotalAtendimento) {
+        this.valorTotalAtendimento = valorTotalAtendimento;
     }
 
 
 
-    public double getValorVeterinarioRecebe() {
-        return valorVeterinarioRecebe;
+    public double getvalorTotalVeterinarioRecebe() {
+        return valorTotalVeterinarioRecebe;
     }
 
 
 
-    public void setValorVeterinarioRecebe(double valorVeterinarioRecebe) {
-        this.valorVeterinarioRecebe = valorVeterinarioRecebe;
+    public void setvalorTotalVeterinarioRecebe(double valorTotalVeterinarioRecebe) {
+        this.valorTotalVeterinarioRecebe = valorTotalVeterinarioRecebe;
     }
 
 

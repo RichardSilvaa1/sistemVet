@@ -10,44 +10,82 @@ public class Exame {
     private double valorExame;
     private TurnoExame turno;
     private List<Descontos> desconto;
+    private double valorExameVet;
 
-    public Exame(Long id, String tipoExame, double valorExame, TurnoExame turno, List<Descontos> desconto) {
+    
+
+    
+    public Exame(Long id, String tipoExame, double valorExame, TurnoExame turno, List<Descontos> desconto,
+            double valorExameVet) {
         this.id = id;
         this.tipoExame = tipoExame;
         this.valorExame = valorExame;
         this.turno = turno;
         this.desconto = desconto;
+        this.valorExameVet = valorExameVet;
     }
+
+    
     public Long getId() {
         return id;
     }
+
+
     public void setId(Long id) {
         this.id = id;
     }
+
+
     public String getTipoExame() {
         return tipoExame;
     }
+
+
     public void setTipoExame(String tipoExame) {
         this.tipoExame = tipoExame;
     }
+
+
     public double getValorExame() {
         return valorExame;
     }
+
+
     public void setValorExame(double valorExame) {
         this.valorExame = valorExame;
     }
+
+
     public TurnoExame getTurno() {
         return turno;
     }
+
+
     public void setTurno(TurnoExame turno) {
         this.turno = turno;
     }
+
+
     public List<Descontos> getDesconto() {
         return desconto;
     }
+
+
     public void setDesconto(List<Descontos> desconto) {
         this.desconto = desconto;
     }
+
+
+    public double getValorExameVet() {
+        return valorExameVet;
+    }
+
+
+    public void setValorExameVet(double valorExameVet) {
+        this.valorExameVet = valorExameVet;
+    }
+
+
     @Override
     public int hashCode() {
         final int prime = 31;

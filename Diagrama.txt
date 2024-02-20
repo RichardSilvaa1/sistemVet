@@ -7,23 +7,10 @@
 | - clinica: Clinica                   |
 | - exames: List<Exame>                |
 | - formaPagamento: FormaPagamento  
-| - valorAtendimento: double   |
-| - valorVeterinarioRecebe: double    |
+| - valorTotalAtendimento: double   |
+| - valorTotalVeterinarioRecebe: double    |
 +---------------------------------------+
-| + getId(): Long                      |
-| + getPaciente(): String              |
-| + getData(): LocalDateTime           |
-| + getClinica(): Clinica              |
-| + getExames(): List<Exame>           |
-| + getFormaPagamento(): FormaPagamento|
-| + getValorVeterinarioRecebe(): double|
-| + setId(Long id): void               |
-| + setPaciente(String paciente): void |
-| + setData(LocalDateTime data): void  |
-| + setClinica(Clinica clinica): void  |
-| + setExames(List<Exame> exames): void|
-| + setFormaPagamento(FormaPagamento formaPagamento): void|
-| + setValorVeterinarioRecebe(double valor): void|
+| // Getters e setters
 +---------------------------------------+
 
 +---------------------------------------+
@@ -33,18 +20,10 @@
 | - tipoExame: String                  |
 | - turno: Turno                       |
 | - descontos: List<Desconto>          |
-| - valorExame: double                 |
+| - valorExame: double   
+  - valorExameVet: double            |
 +---------------------------------------+
-| + getId(): Long                      |
-| + getTipoExame(): String             |
-| + getTurno(): Turno                  |
-| + getDescontos(): List<Desconto>    |
-| + getValorExame(): double           |
-| + setId(Long id): void               |
-| + setTipoExame(String tipoExame): void |
-| + setTurno(Turno turno): void       |
-| + setDescontos(List<Desconto> descontos): void |
-| + setValorExame(double valorExame): void |
+|// Getters e setters|
 +---------------------------------------+
 
 +---------------------------------------+
@@ -53,10 +32,7 @@
 | - id: Long                           |
 | - nomeClinica: String                |
 +---------------------------------------+
-| + getId(): Long                      |
-| + getNomeClinica(): String           |
-| + setId(Long id): void               |
-| + setNomeClinica(String nomeClinica): void |
+| // Getters e setters
 +---------------------------------------+
 
 +---------------------------------------+
@@ -75,12 +51,7 @@
 | - tipoDesc: String                       |
 | - valorDesc: double                      |
 +---------------------------------------+
-| + getId(): Long                      |
-| + getTipo(): String                  |
-| + getValor(): double                 |
-| + setId(Long id): void               |
-| + setTipo(String tipo): void        |
-| + setValor(double valor): void      |
+|// Getters e setters   |
 +---------------------------------------+
 
 +---------------------------------------+
