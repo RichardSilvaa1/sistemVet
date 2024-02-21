@@ -1,9 +1,24 @@
 package com.sistem.sisvet.Entities;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity // cria uma entidade no jpa
+@Table(name = "descontos")
 public class Descontos {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)// geraçao de chave no banco de dados
     private Long id;
+
+    @Column(nullable = false)
     private String tipoDesc;
+
+    @Column(nullable = false)
     private double valorDesc;
 
     
