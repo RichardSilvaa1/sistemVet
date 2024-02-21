@@ -1,5 +1,7 @@
 package com.sistem.sisvet.Entities;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,7 +11,8 @@ import jakarta.persistence.Table;
 
 @Entity // entidade
 @Table(name="clinica") // nome da tabela
-public class Clinica {
+public class Clinica implements Serializable {
+	private static final long serialVersionUID = 1L; 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // identificando a geraçao de chaves primarias

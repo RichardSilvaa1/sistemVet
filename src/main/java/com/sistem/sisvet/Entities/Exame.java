@@ -1,5 +1,6 @@
 package com.sistem.sisvet.Entities;
 
+import java.io.Serializable;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -13,7 +14,8 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="exames")
-public class Exame {
+public class Exame implements Serializable {
+	private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)// geracao de chaves id no bando de dados automaticamente conforme for inserindo

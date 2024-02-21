@@ -1,5 +1,7 @@
 package com.sistem.sisvet.Entities;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,7 +11,8 @@ import jakarta.persistence.Table;
 
 @Entity // cria uma entidade no jpa
 @Table(name = "descontos")
-public class Descontos {
+public class Descontos implements Serializable {
+	private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)// geraçao de chave no banco de dados
