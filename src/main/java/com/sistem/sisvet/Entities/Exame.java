@@ -2,11 +2,33 @@ package com.sistem.sisvet.Entities;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="exames")
 public class Exame {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)// geracao de chaves id no bando de dados automaticamente conforme for inserindo
     private Long id;
+    
+    @Column(nullable = false) // criacao da coluna no banco de dados nao podendo ter valores nulos
     private String tipoExame;
+
+    @Column(nullable = false)
     private double valorExame;
+
+    @ManyToOne(fetch= FetchType.LAZY)//anotação é usada para especificar um relacionamento muitos-para-um entre entidades.
     private List<Descontos> desconto;
+
+    @Column(nullable = false)
     private double valorExameVet;
     
 
