@@ -1,42 +1,135 @@
-+---------------------------------------+
-|             Atendimento               |
-+---------------------------------------+
-| - id: Long                           |
-| - paciente: String                   |
-| - data: LocalDateTime                |
-| - clinica: Clinica                   |
-| - exames: List<Exame>                |
-| - formaPagamento: FormaPagamento  
-| - valorTotalAtendimento: double   |
-| - valorTotalVeterinarioRecebe: double    |
-+---------------------------------------+
-| // Getters e setters
-+---------------------------------------+
+crie o diagrama textual de classes apartiri disso
 
-+---------------------------------------+
-|               Exame                   |
-+---------------------------------------+
-| - id: Long                           |
-| - tipoExame: String                  |
-| - turno: Turno                       |
-| - descontos: List<Desconto>          |
-| - valorExame: double   
-  - valorExameVet: double            |
-+---------------------------------------+
-|// Getters e setters|
-+---------------------------------------+
+Implementação completa do código Spring Boot para o diagrama:
+Lógica de Negócio:
 
-+---------------------------------------+
-|              Clinica                  |
-+---------------------------------------+
-| - id: Long                           |
-| - nomeClinica: String                |
-+---------------------------------------+
-| // Getters e setters
-+---------------------------------------+
+Atendimento:
 
+Calcular valor total do atendimento (somando valor dos exames para chegar no total do atendimento).
+Calcular valor que o veterinário recebe (soma o valor a receber de cada exame formando o valor total).
+Exame:
+
+recebe o valor cadastrado do exame.
+Calcular valor que o veterinário recebe pelo exame (deduzindo conforme os descontos).
+Desconto:
+
+Validar se o desconto é válido para o tipo de exame.
+Entidades JPA:
+
+Atendimento:
+Mapeamento das propriedades: id, paciente, data, clinica, exames, formaPagamento, valorTotalAtendimento, valorTotalVeterinarioRecebe.
+Exame:
+Mapeamento das propriedades: id, tipoExame, turno, descontos, valorExame, valorExameVet.
+Clinica:
+Mapeamento das propriedades: id, nomeClinica.
+Desconto:
+Mapeamento das propriedades: id, tipoDesc, valorDesc.
+Controllers RESTful:
+
+AtendimentoController:
+Endpoints para:
+GET /atendimentos: Buscar todos os atendimentos.
+GET /atendimentos/{id}: Buscar um atendimento por ID.
+POST /atendimentos: Criar um novo atendimento.
+PUT /atendimentos/{id}: Atualizar um atendimento por ID.
+DELETE /atendimentos/{id}: Excluir um atendimento por ID.
+ExameController:
+Endpoints para:
+GET /exames: Buscar todos os exames.
+GET /exames/{id}: Buscar um exame por ID.
+POST /exames: Criar um novo exame.
+PUT /exames/{id}: Atualizar um exame por ID.
+DELETE /exames/{id}: Excluir um exame por ID.
+ClinicaController:
+Endpoints para:
+GET /clinicas: Buscar todas as clínicas.
+GET /clinicas/{id}: Buscar uma clínica por ID.
+POST /clinicas: Criar uma nova clínica.
+PUT /clinicas/{id}: Atualizar uma clínica por ID.
+DELETE /clinicas/{id}: Excluir uma clínica por ID.
+DescontoController:
+Endpoints para:
+GET /descontos: Buscar todos os descontos.
+GET /descontos/{id}: Buscar um desconto por ID.
+Serviços:
+
+AtendimentoService:
+Implementação da lógica de negócio para Atendimento.
+Métodos para:
+Buscar todos os atendimentos.
+Buscar um atendimento por ID.
+Salvar um novo atendimento.
+Atualizar um atendimento por ID.
+Excluir um atendimento por ID.
+ExameService:
+Implementação da lógica de negócio para Exame.
+Métodos para:
+Buscar todos os exames.
+Buscar um exame por ID.
+Salvar um novo exame.
+Atualizar um exame por ID.
+Excluir um exame por ID.
+ClinicaService:
+Implementação da lógica de negócio para Clinica.
+Métodos para:
+Buscar todas as clínicas.
+Buscar uma clínica por ID.
+Salvar uma nova clínica.
+Atualizar uma clínica por ID.
+Excluir uma clínica por ID.
+DescontoService:
+Implementação da lógica de negócio para Desconto.
+Métodos para:
+Buscar todos os descontos.
+Buscar um desconto por ID.
+
++---------------------------------+
+|           Atendimento           |
++---------------------------------+
+| - id: Long                      |
+| - paciente: String              |
+| - data: LocalDateTime           |
+| - clinica: Clinica              |
+| - exames: List<Exame>           |
+| - formaPagamento: FormaPagamento|
+| - valorTotalAtendimento: double|
+| - valorTotalVeterinarioRecebe: double |
++---------------------------------+
+| + calcularValorTotalAtendimento() : double |
+| + calcularValorVeterinarioRecebe() : double |
++---------------------------------+
+
++---------------------------------+
+|              Exame              |
++---------------------------------+
+| - id: Long                      |
+| - tipoExame: String             |
+| - turno: TurnoExame             |
+| - descontos: List<Desconto>     |
+| - valorExame: double            |
+| - valorExameVet: double         |
++---------------------------------+
+| + calcularValorVeterinarioRecebe() : double |
++---------------------------------+
+
++---------------------------------+
+|             Desconto            |
++---------------------------------+
+| - id: Long                      |
+| - tipoDesc: String              |
+| - valorDesc: double             |
++---------------------------------+
+| + validarDesconto(Exame exame) : boolean |
++---------------------------------+
+
++---------------------------------+
+|             Clinica             |
++---------------------------------+
+| - id: Long                      |
+| - nomeClinica: String           |
++---------------------------------+
 +---------------------------------------+
-|           FormaPagamento              |
+|          enum FormaPagamento              |
 +---------------------------------------+
 | - DINHEIRO                         |
 | - PIX                    |
@@ -44,15 +137,6 @@
 | - PIXVET                             |
 +---------------------------------------+
 
-+---------------------------------------+
-|              Desconto                 |
-+---------------------------------------+
-| - id: Long                           |
-| - tipoDesc: String                       |
-| - valorDesc: double                      |
-+---------------------------------------+
-|// Getters e setters   |
-+---------------------------------------+
 
 +---------------------------------------+
 |               TurnoExame                   |
@@ -66,5 +150,91 @@
 | - PLANTAO_MEIA_NOITE                 |
 +---------------------------------------+
 
++---------------------------------+
+|        AtendimentoService       |
++---------------------------------+
+| - atendimentoRepository: AtendimentoRepository |
++---------------------------------+
+| + getAllAtendimentos() : List<Atendimento> |
+| + getAtendimentoById(Long id) : Atendimento |
+| + saveAtendimento(Atendimento atendimento) : Atendimento |
+| + updateAtendimento(Long id, Atendimento atendimento) : Atendimento |
+| + deleteAtendimento(Long id) : void |
+| + calcularValorTotalAtendimento(Atendimento atendimento) : double |
+| + calcularValorVeterinarioRecebe(Atendimento atendimento) : double |
++---------------------------------+
 
++---------------------------------+
+|           ExameService          |
++---------------------------------+
+| - exameRepository: ExameRepository |
+| - descontoService: DescontoService |
++---------------------------------+
+| + getAllExames() : List<Exame> |
+| + getExameById(Long id) : Exame |
+| + saveExame(Exame exame) : Exame |
+| + updateExame(Long id, Exame exame) : Exame |
+| + deleteExame(Long id) : void |
+| + calcularValorVeterinarioRecebe(Exame exame) : double |
++---------------------------------+
 
++---------------------------------+
+|         DescontoService         |
++---------------------------------+
+| - descontoRepository: DescontoRepository |
++---------------------------------+
+| + getAllDescontos() : List<Desconto> |
+| + getDescontoById(Long id) : Desconto |
+| + saveDesconto(Desconto desconto) : Desconto |
+| + updateDesconto(Long id, Desconto desconto) : Desconto |
+| + deleteDesconto(Long id) : void |
+| + validarDesconto(Desconto desconto, Exame exame) : boolean |
++---------------------------------+
+
++---------------------------------+
+|        AtendimentoController   |
++---------------------------------+
+| - atendimentoService: AtendimentoService |
++---------------------------------+
+| + getAllAtendimentos() : List<Atendimento> |
+| + getAtendimentoById(Long id) : Atendimento |
+| + createAtendimento(Atendimento atendimento) : Atendimento |
+| + updateAtendimento(Long id, Atendimento atendimento) : Atendimento |
+| + deleteAtendimento(Long id) : ResponseEntity<Void> |
++---------------------------------+
+
++---------------------------------+
+|           ExameController      |
++---------------------------------+
+| - exameService: ExameService |
++---------------------------------+
+| + getAllExames() : List<Exame> |
+| + getExameById(Long id) : Exame |
+| + createExame(Exame exame) : Exame |
+| + updateExame(Long id, Exame exame) : Exame |
+| + deleteExame(Long id) : ResponseEntity<Void> |
++---------------------------------+
+
++---------------------------------+
+|       ClinicaController        |
++---------------------------------+
+| - clinicaService: ClinicaService |
++---------------------------------+
+| + getAllClinicas() : List<Clinica> |
+| + getClinicaById(Long id) : Clinica |
+| + createClinica(Clinica clinica) : Clinica |
+| + updateClinica(Long id, Clinica clinica) : Clinica |
+| + deleteClinica(Long id) : ResponseEntity<Void> |
++---------------------------------+
+
++---------------------------------+
+|       DescontoController       |
++---------------------------------+
+| - descontoService: DescontoService |
++---------------------------------+
+| + getAllDescontos() : List<Desconto> |
+| + getDescontoById(Long id) : Desconto |
+| + createDesconto(Desconto desconto) : Desconto |
+| + updateDesconto(Long id, Desconto desconto) : Desconto |
+| + deleteDesconto(Long id) : ResponseEntity<Void> |
++---------------------------------+

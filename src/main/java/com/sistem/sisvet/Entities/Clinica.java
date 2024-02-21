@@ -1,8 +1,21 @@
 package com.sistem.sisvet.Entities;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity // entidade
+@Table(name="clinica") // nome da tabela
 public class Clinica {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // identificando a geraçao de chaves primarias
     private Long id;
+
+    @Column(nullable = false) // cria uma coluna e especifica que nao pode ter valores nulls
     private String nomeClinica;
 
     public Clinica(Long id, String nomeClinica) {

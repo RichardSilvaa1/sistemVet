@@ -10,6 +10,7 @@ public enum FormaPagamento {
     
 private final int codigo;
 private final String descricao;
+
 private FormaPagamento(int codigo, String descricao) {
     this.codigo = codigo;
     this.descricao = descricao;

@@ -1,21 +1,55 @@
 package com.sistem.sisvet.Entities;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import com.sistem.sisvet.Entities.Enums.FormaPagamento;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+
+
+@Entity //  define a classe como um entidade JPA
+@Table(name = "atendimentos") // Especifica o nome da tabela no banco de dados
 public class Atendimento implements Serializable {
 	private static final long serialVersionUID = 1L; 
     
+    @Id // marca o campo como chave primaria 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)// identificado a geracao de chaves primarias
     private Long id;
-    private String paciente;
+
+    @ManyToOne(fetch= FetchType.LAZY)// anotaçao para especificar o relacionamento muitos para com entidade clinica
+    @JoinColumn(name="clinica_id")// esta anotaçao espedifica a clona na tababela que mantem a chave estrangeira
     private Clinica clinica;
+
+    @Column(nullable = false)// especifica que a coluna nao pode ter valores nulos
+    private String paciente;
+    
+    @Column(nullable = false)//  especifica que a coluna nao pode ter valores nulos
     private LocalDateTime data;
+
+    @OneToMany(mappedBy = "atendimento", cascade = CascadeType.ALL)
     private List<Exame> exames;
+
+    @Enumerated(EnumType.STRING)// esta anotacao especifica o campo  enum armazenado como string no banco de dados
+    @Column(nullable = false)
     private FormaPagamento formaPagamento;
+    
+    @Column(nullable = false)   
     private double valorTotalAtendimento;
+    @Column(nullable = false)
     private double valorTotalVeterinarioRecebe;
 
     

@@ -2,25 +2,20 @@ package com.sistem.sisvet.Entities;
 
 import java.util.List;
 
-import com.sistem.sisvet.Entities.Enums.TurnoExame;
-
 public class Exame {
     private Long id;
     private String tipoExame;
     private double valorExame;
-    private TurnoExame turno;
     private List<Descontos> desconto;
     private double valorExameVet;
-
     
 
-    
-    public Exame(Long id, String tipoExame, double valorExame, TurnoExame turno, List<Descontos> desconto,
+    public Exame(Long id, String tipoExame, double valorExame, List<Descontos> desconto,
             double valorExameVet) {
         this.id = id;
         this.tipoExame = tipoExame;
         this.valorExame = valorExame;
-        this.turno = turno;
+        
         this.desconto = desconto;
         this.valorExameVet = valorExameVet;
     }
@@ -53,16 +48,6 @@ public class Exame {
 
     public void setValorExame(double valorExame) {
         this.valorExame = valorExame;
-    }
-
-
-    public TurnoExame getTurno() {
-        return turno;
-    }
-
-
-    public void setTurno(TurnoExame turno) {
-        this.turno = turno;
     }
 
 
