@@ -89,23 +89,23 @@ Buscar um desconto por ID.
 | - id: Long                      |
 | - paciente: String              |
 | - data: LocalDateTime           |
-| - clinica: Clinica              |
+| - clinica: Clinica   
+  - turno: Turno            |
 | - exames: List<Exame>           |
 | - formaPagamento: FormaPagamento|
-| - valorTotalAtendimento: double|
-| - valorTotalVeterinarioRecebe: double |
+| - valorTotalAtendimento: BigDecimal|
+| - valorTotalVeterinarioRecebe: BigDecimal |
 +---------------------------------+
-| + calcularValorTotalAtendimento() : double |
-| + calcularValorVeterinarioRecebe() : double |
+|
 +---------------------------------+
 
 +---------------------------------+
 |              Exame              |
 +---------------------------------+
 | - id: Long                      |
-| - tipoExame: String             |
-| - turno: TurnoExame             |
-| - descontos: List<Desconto>     |
+| - tipoExame: String             |            |
+| - descontos: List<Desconto> 
+   - atendimento: atendimento    |
 | - valorExame: double            |
 | - valorExameVet: double         |
 +---------------------------------+

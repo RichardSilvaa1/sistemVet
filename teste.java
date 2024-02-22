@@ -1,61 +1,84 @@
-@Entity // Esta anotação marca a classe como uma entidade JPA, ou seja, ela será mapeada para uma tabela no banco de dados.
-@Table(name = "atendimentos") // Esta anotação especifica o nome da tabela no banco de dados. Por padrão, o nome da tabela seria o mesmo que o nome da classe.
-public class Atendimento {
+import com.sistem.sisvet.Entities.Atendimento;
+import com.sistem.sisvet.Entities.Exame;
 
-    @Id // Esta anotação marca o campo como a chave primária da entidade.
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Esta anotação especifica a estratégia de geração de valor para a chave primária. Neste caso, estamos usando a identidade do banco de dados para gerar valores automáticos.
-    private Long id;
+@Service
+public class AtendimentoService {
 
-    @Column(nullable = false) // Esta anotação especifica que a coluna no banco de dados não pode ter valores nulos.
-    private String paciente;
+    private final AtendimentoRepository atendimentoRepository;
 
-    @Column(nullable = false) // Esta anotação especifica que a coluna no banco de dados não pode ter valores nulos.
-    private LocalDateTime data;
+    public AtendimentoService(AtendimentoRepository atendimentoRepository) {
+        this.atendimentoRepository = atendimentoRepository;
+    }
 
-    @ManyToOne(fetch = FetchType.LAZY) // Esta anotação especifica o relacionamento muitos-para-um com a entidade Clinica. O FetchType.LAZY indica que a consulta para esta relação será adiada até que seja acessada.
-    @JoinColumn(name = "clinica_id") // Esta anotação especifica a coluna na tabela do banco de dados que mantém a chave estrangeira para a entidade Clinica.
-    private Clinica clinica;
+    public List<Atendimento> getAllAtendimentos() {
+        return atendimentoRepository.findAll();
+    }
 
-    @OneToMany(mappedBy = "atendimento", cascade = CascadeType.ALL) // Esta anotação especifica o relacionamento um-para-muitos com a entidade Exame. O atributo mappedBy indica o nome do atributo na classe Exame que mapeia esta relação. CascadeType.ALL especifica que todas as operações de persistência (persistir, remover, atualizar, mesclar) feitas na entidade Atendimento também devem ser aplicadas na entidade Exame relacionada.
-    private List<Exame> exames;
+    public Atendimento getAtendimentoById(Long id) {
+        return atendimentoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Atendimento não encontrado com o ID: " + id));
+    }
 
-    @Enumerated(EnumType.STRING) // Esta anotação especifica que o campo representa uma enumeração, e o tipo de enumeração é armazenado como uma string no banco de dados.
-    @Column(nullable = false) // Esta anotação especifica que a coluna no banco de dados não pode ter valores nulos.
-    private FormaPagamento formaPagamento;
+    public Atendimento saveAtendimento(Atendimento atendimento) {
+        validarAtendimento(atendimento);
+        atendimento.setValorTotalAtendimento(calcularValorTotalAtendimento(atendimento));
+        atendimento.setValorTotalVeterinarioRecebe(calcularValorVeterinarioRecebe(atendimento));
+        return atendimentoRepository.save(atendimento);
+    }
 
-    @Column(nullable = false) // Esta anotação especifica que a coluna no banco de dados não pode ter valores nulos.
-    private Double valorTotalAtendimento;
+    public Atendimento updateAtendimento(Long id, Atendimento atendimentoDetails) {
+        Atendimento atendimento = getAtendimentoById(id);
+        validarAtendimento(atendimentoDetails);
+        atendimento.setPaciente(atendimentoDetails.getPaciente());
+        atendimento.setData(atendimentoDetails.getData());
+        atendimento.setClinica(atendimentoDetails.getClinica());
+        atendimento.setTurno(atendimentoDetails.getTurno());
+        atendimento.setExames(atendimentoDetails.getExames());
+        atendimento.setFormaPagamento(atendimentoDetails.getFormaPagamento());
+        atendimento.setValorTotalAtendimento(calcularValorTotalAtendimento(atendimento));
+        atendimento.setValorTotalVeterinarioRecebe(calcularValorVeterinarioRecebe(atendimento));
+        return atendimentoRepository.save(atendimento);
+    }
 
-    @Column(nullable = false) // Esta anotação especifica que a coluna no banco de dados não pode ter valores nulos.
-    private Double valorTotalVeterinarioRecebe;
+    public void deleteAtendimento(Long id) {
+        atendimentoRepository.deleteById(id);
+    }
 
-    // Getters e setters
-}
+    private void validarAtendimento(Atendimento atendimento) {
+        if (atendimento.getPaciente() == null || atendimento.getPaciente().isEmpty()) {
+            throw new BadRequestException("Paciente não pode ser nulo ou vazio");
+        }
+        if (atendimento.getData() == null) {
+            throw new BadRequestException("Data não pode ser nula");
+        }
+        if (atendimento.getClinica() == null) {
+            throw new BadRequestException("Clínica não pode ser nula");
+        }
+        if (atendimento.getTurno() == null) {
+            throw new BadRequestException("Turno não pode ser nulo");
+        }
+        if (atendimento.getExames() == null || atendimento.getExames().isEmpty()) {
+            throw new BadRequestException("Exames não podem ser nulos ou vazios");
+        }
+        if (atendimento.getFormaPagamento() == null) {
+            throw new BadRequestException("Forma de pagamento não pode ser nula");
+        }
+    }
 
+    public double calcularValorTotalAtendimento(Atendimento atendimento) {
+        double valorTotal = 0;
+        for (Exame exame : atendimento.getExames()) {
+            valorTotal += exame.getValorExame();
+        }
+        atendimento.setValorTotalAtendimento(valorTotal);
+        return valorTotal;
+    }
+    
 
-
-// Anotação que indica que a classe é uma entidade JPA.
-@Entity
-public class Atendimento {
-
-    // Anotação que indica que o atributo é a chave primária da entidade.
-    // Estrategia de geração da chave primaria
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    // Anotação que indica uma relação de muitos para um com a classe Clinica.
-    @ManyToOne
-    private Clinica clinica;
-
-    // Anotação que indica uma relação de muitos para um com a classe Paciente.
-    @ManyToOne
-    private Paciente paciente;
-
-    // ...
-
-    // Anotação que indica uma relação de um para muitos com a classe Exame.
-    // O atributo "atendimento" em Exame é mapeado por essa anotação.
-    @OneToMany(mappedBy = "atendimento")
-    private List<Exame> exames;
+    public double calcularValorVeterinarioRecebe(Atendimento atendimento) {
+        double valorTotal =  0;
+        for(Exame exame : atendimento.getExames()){
+            valorTotal  += exame.getValorExameVet();
+        }
+            atendimento.
+    }
 }

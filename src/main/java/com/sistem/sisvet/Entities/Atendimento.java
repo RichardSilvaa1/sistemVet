@@ -1,9 +1,12 @@
 package com.sistem.sisvet.Entities;
+
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import com.sistem.sisvet.Entities.Enums.FormaPagamento;
+import com.sistem.sisvet.Entities.Enums.Turno;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -19,184 +22,154 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-
-
-@Entity //  define a classe como um entidade JPA
-@Table(name = "atendimentos") // Especifica o nome da tabela no banco de dados
+@Entity
+@Table(name = "atendimentos")
 public class Atendimento implements Serializable {
-	private static final long serialVersionUID = 1L; 
-    
-    @Id // marca o campo como chave primaria 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)// identificado a geracao de chaves primarias
-    private Long id;
 
-    @ManyToOne(fetch= FetchType.LAZY)// anotaçao para especificar o relacionamento muitos para com entidade clinica
-    @JoinColumn(name="clinica_id")// esta anotaçao espedifica a clona na tababela que mantem a chave estrangeira
-    private Clinica clinica;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(nullable = false)// especifica que a coluna nao pode ter valores nulos
-    private String paciente;
-    
-    @Column(nullable = false)//  especifica que a coluna nao pode ter valores nulos
-    private LocalDateTime data;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "clinica_id")
+  private Clinica clinica;
 
-    @OneToMany(mappedBy = "atendimento", cascade = CascadeType.ALL)
-    private List<Exame> exames;
+  @Column(nullable = true)
+  private String paciente;
 
-    @Enumerated(EnumType.STRING)// esta anotacao especifica o campo  enum armazenado como string no banco de dados
-    @Column(nullable = false)
-    private FormaPagamento formaPagamento;
-    
-    @Column(nullable = false)   
-    private double valorTotalAtendimento;
-    @Column(nullable = false)
-    private double valorTotalVeterinarioRecebe;
+  @Column(nullable = false)
+  private LocalDateTime dataAtendimento;
 
-    
-    
-    public Atendimento(Long id, String paciente, Clinica clinica, LocalDateTime data, List<Exame> exames,
-            FormaPagamento formaPagamento, double valorTotalAtendimento, double valorTotalVeterinarioRecebe) {
-        this.id = id;
-        this.paciente = paciente;
-        this.clinica = clinica;
-        this.data = data;
-        this.exames = exames;
-        this.formaPagamento = formaPagamento;
-        this.valorTotalAtendimento = valorTotalAtendimento;
-        this.valorTotalVeterinarioRecebe = valorTotalVeterinarioRecebe;
-    }
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private FormaPagamento formaPagamento;
 
-    
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private Turno turno;
 
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
+  @Column(nullable = false)
+  private BigDecimal totalAtendimento;
 
+  @Column(nullable = false)
+  private BigDecimal totalVet;
 
+  @OneToMany(mappedBy = "atendimento", cascade = CascadeType.ALL)
+  private List<Exame> exames;
 
-    public Long getId() {
-        return id;
-    }
+  public Atendimento() {}
 
+  public Atendimento(
+    Long id,
+    Clinica clinica,
+    String paciente,
+    LocalDateTime dataAtendimento,
+    FormaPagamento formaPagamento,
+    Turno turno,
+    BigDecimal totalAtendimento,
+    BigDecimal totalVet,
+    List<Exame> exames
+  ) {
+    this.id = id;
+    this.clinica = clinica;
+    this.paciente = paciente;
+    this.dataAtendimento = dataAtendimento;
+    this.formaPagamento = formaPagamento;
+    this.turno = turno;
+    this.totalAtendimento = totalAtendimento;
+    this.totalVet = totalVet;
+    this.exames = exames;
+  }
 
+  public Long getId() {
+    return id;
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
+  public Clinica getClinica() {
+    return clinica;
+  }
 
+  public void setClinica(Clinica clinica) {
+    this.clinica = clinica;
+  }
 
-    public String getPaciente() {
-        return paciente;
-    }
+  public String getPaciente() {
+    return paciente;
+  }
 
+  public void setPaciente(String paciente) {
+    this.paciente = paciente;
+  }
 
+  public LocalDateTime getDataAtendimento() {
+    return dataAtendimento;
+  }
 
-    public void setPaciente(String paciente) {
-        this.paciente = paciente;
-    }
+  public void setDataAtendimento(LocalDateTime dataAtendimento) {
+    this.dataAtendimento = dataAtendimento;
+  }
 
+  public FormaPagamento getFormaPagamento() {
+    return formaPagamento;
+  }
 
+  public void setFormaPagamento(FormaPagamento formaPagamento) {
+    this.formaPagamento = formaPagamento;
+  }
 
-    public Clinica getClinica() {
-        return clinica;
-    }
+  public Turno getTurno() {
+    return turno;
+  }
 
+  public void setTurno(Turno turno) {
+    this.turno = turno;
+  }
 
+  public BigDecimal getTotalAtendimento() {
+    return totalAtendimento;
+  }
 
-    public void setClinica(Clinica clinica) {
-        this.clinica = clinica;
-    }
+  public void setTotalAtendimento(BigDecimal totalAtendimento) {
+    this.totalAtendimento = totalAtendimento;
+  }
 
+  public BigDecimal getTotalVet() {
+    return totalVet;
+  }
 
+  public void setTotalVet(BigDecimal totalVet) {
+    this.totalVet = totalVet;
+  }
 
-    public LocalDateTime getData() {
-        return data;
-    }
+  public List<Exame> getExames() {
+    return exames;
+  }
 
+  public void setExames(List<Exame> exames) {
+    this.exames = exames;
+  }
 
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((id == null) ? 0 : id.hashCode());
+    return result;
+  }
 
-    public void setData(LocalDateTime data) {
-        this.data = data;
-    }
-
-
-
-    public List<Exame> getExames() {
-        return exames;
-    }
-
-
-
-    public void setExames(List<Exame> exames) {
-        this.exames = exames;
-    }
-
-
-
-    public FormaPagamento getFormaPagamento() {
-        return formaPagamento;
-    }
-
-
-
-    public void setFormaPagamento(FormaPagamento formaPagamento) {
-        this.formaPagamento = formaPagamento;
-    }
-
-
-
-    public double getvalorTotalAtendimento() {
-        return valorTotalAtendimento;
-    }
-
-
-
-    public void setvalorTotalAtendimento(double valorTotalAtendimento) {
-        this.valorTotalAtendimento = valorTotalAtendimento;
-    }
-
-
-
-    public double getvalorTotalVeterinarioRecebe() {
-        return valorTotalVeterinarioRecebe;
-    }
-
-
-
-    public void setvalorTotalVeterinarioRecebe(double valorTotalVeterinarioRecebe) {
-        this.valorTotalVeterinarioRecebe = valorTotalVeterinarioRecebe;
-    }
-
-
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Atendimento other = (Atendimento) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        return true;
-    }
-
-    
-    
-
-
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
+    Atendimento other = (Atendimento) obj;
+    if (id == null) {
+      if (other.id != null) return false;
+    } else if (!id.equals(other.id)) return false;
+    return true;
+  }
 }
