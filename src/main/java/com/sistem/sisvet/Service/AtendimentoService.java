@@ -2,6 +2,7 @@ package com.sistem.sisvet.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -119,10 +120,24 @@ public class AtendimentoService {
     return valorTotal;
   }
 
-public List<Atendimento> filtrarAtendimentosPorData(String dataInicio, String dataFim) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'filtrarAtendimentosPorData'");
-}
+// Filtra os atendimentos por data
+  public List<Atendimento> filtrarAtendimentosPorData(LocalDateTime dataInicio, LocalDateTime dataFim) {
+    String dataInicioStr = dataInicio.toString(); // Converter LocalDateTime para String
+    String dataFimStr = dataFim.toString(); // Converter LocalDateTime para String
+    
+    List<Atendimento> atendimentosFiltrados = new ArrayList<>();
+
+    // Itera sobre todos os atendimentos do repositório
+    for (Atendimento atendimento : atendimentoRepository.findAll()) {
+      LocalDateTime dataAtendimento = atendimento.getDataAtendimento();
+      // Verifica se a data do atendimento está dentro do intervalo especificado
+      if (dataAtendimento.isAfter(dataInicio) && dataAtendimento.isBefore(dataFim)) {
+        atendimentosFiltrados.add(atendimento); // Adiciona o atendimento à lista de atendimentos filtrados
+      }
+    }
+
+    return atendimentosFiltrados; // Retorna a lista de atendimentos filtrados
+  }
 
 public Map<String, Long> obterQuantidadeAtendimentosPorCliente() {
         List<Atendimento> atendimentos = atendimentoRepository.findAll();
