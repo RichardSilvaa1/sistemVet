@@ -40,6 +40,9 @@ public class Atendimento implements Serializable {
   @Column(nullable = false)
   private LocalDateTime dataAtendimento;
 
+  @OneToMany(mappedBy = "atendimento", cascade = CascadeType.ALL)
+  private List<Exame> exames;
+  
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
   private FormaPagamento formaPagamento;
@@ -54,8 +57,7 @@ public class Atendimento implements Serializable {
   @Column(nullable = false)
   private BigDecimal totalVet;
 
-  @OneToMany(mappedBy = "atendimento", cascade = CascadeType.ALL)
-  private List<Exame> exames;
+
 
   public Atendimento() {}
 

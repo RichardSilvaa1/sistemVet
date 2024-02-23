@@ -89,12 +89,11 @@ Buscar um desconto por ID.
 | - id: Long                      |
 | - paciente: String              |
 | - data: LocalDateTime           |
-| - clinica: Clinica   
-  - turno: Turno            |
-| - exames: List<Exame>           |
+| - clinica: Clinica             |
+| - exames: List<Exame>         |
 | - formaPagamento: FormaPagamento|
-| - valorTotalAtendimento: BigDecimal|
-| - valorTotalVeterinarioRecebe: BigDecimal |
+| - valorTotal: BigDecimal|
+| - valorTotalVet: BigDecimal |
 +---------------------------------+
 |
 +---------------------------------+
@@ -103,13 +102,13 @@ Buscar um desconto por ID.
 |              Exame              |
 +---------------------------------+
 | - id: Long                      |
-| - tipoExame: String             |            |
-| - descontos: List<Desconto> 
+| - tipoExame: String 
+| - turno Turno            |            |
    - atendimento: atendimento    |
 | - valorExame: double            |
-| - valorExameVet: double         |
+|         |
 +---------------------------------+
-| + calcularValorVeterinarioRecebe() : double |
+| 
 +---------------------------------+
 
 +---------------------------------+
@@ -119,7 +118,7 @@ Buscar um desconto por ID.
 | - tipoDesc: String              |
 | - valorDesc: double             |
 +---------------------------------+
-| + validarDesconto(Exame exame) : boolean |
+| \
 +---------------------------------+
 
 +---------------------------------+
@@ -176,6 +175,7 @@ Buscar um desconto por ID.
 | + updateExame(Long id, Exame exame) : Exame |
 | + deleteExame(Long id) : void |
 | + calcularValorVeterinarioRecebe(Exame exame) : double |
+  + validarDesconto(Desconto desconto, Exame exame) : boolean |
 +---------------------------------+
 
 +---------------------------------+
@@ -188,7 +188,7 @@ Buscar um desconto por ID.
 | + saveDesconto(Desconto desconto) : Desconto |
 | + updateDesconto(Long id, Desconto desconto) : Desconto |
 | + deleteDesconto(Long id) : void |
-| + validarDesconto(Desconto desconto, Exame exame) : boolean |
+
 +---------------------------------+
 
 +---------------------------------+

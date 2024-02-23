@@ -9,40 +9,46 @@ import org.springframework.stereotype.Service;
 import com.sistem.sisvet.Entities.Descontos;
 import com.sistem.sisvet.Repositories.DescontosRepository;
 
+// Anotação indicando que esta classe é um serviço
 @Service
 public class DescontosService {
  
+    // Declaração de um membro privado que representa o repositório de descontos
     private DescontosRepository descontosRepository;
 
-    // Construtor para injetar o DescontosRepository
+    // Construtor da classe que recebe um DescontosRepository como argumento
     public DescontosService(DescontosRepository descontosRepository) {
         this.descontosRepository = descontosRepository;
     }
 
     // Método para criar um novo desconto
-    public Descontos criarDesconto(Descontos desconto) {
+    public Descontos criarDesconto(Descontos desconto){
         return descontosRepository.save(desconto);
     }
 
-    // Método para buscar um desconto pelo ID
-    public Descontos buscarDescontos(Long id) {
+    // Método para buscar desconto por ID
+    public Descontos buscarDescontos(Long id){
         Optional<Descontos> descontosOptional = descontosRepository.findById(id);
-        if (descontosOptional.isPresent()) {
+        if(descontosOptional.isPresent()) {
             return descontosOptional.get();
         } else {
-            throw new ResourceNotFoundException("Desconto não encontrado");
+            // Lança uma exceção caso o desconto não seja encontrado
+            throw new ResourceNotFoundException("Desconto nao encontrado");
         }
     }
 
-    // Método para recuperar todos os descontos
-    public List<Descontos> buscarDescontos() {
+    // Método para buscar todos os descontos
+    public List<Descontos> buscarDescontos(){
         return descontosRepository.findAll();
     }
 
-    // Método para excluir um desconto
-    public void deletarDesconto(Long id) {
+    // Método para deletar o desconto por ID
+    public void deletarDesconto(Long id){
+        // Busca o desconto pelo ID
         Descontos desconto = buscarDescontos(id);
+        // Deleta o desconto do repositório
         descontosRepository.delete(desconto);
     }
+
 }
 
