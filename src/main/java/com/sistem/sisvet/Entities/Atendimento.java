@@ -161,6 +161,15 @@ public class Atendimento implements Serializable {
     return result;
   }
 
+  
+
+
+  @Override
+  public String toString() {
+    return "Atendimento [clinica=" + clinica + ", paciente=" + paciente + ", dataAtendimento=" + dataAtendimento
+        + ", formaPagamento=" + formaPagamento + ", turno=" + turno + "]";
+  }
+
   @Override
   public boolean equals(Object obj) {
     if (this == obj) return true;

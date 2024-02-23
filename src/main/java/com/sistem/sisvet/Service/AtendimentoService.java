@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.coyote.BadRequestException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +20,10 @@ import com.sistem.sisvet.Repositories.AtendimentoRepository;
 @Service
 public class AtendimentoService {
 
+  @Autowired
   private final AtendimentoRepository atendimentoRepository;
 
+  // Construtor
   public AtendimentoService(AtendimentoRepository atendimentoRepository) {
     this.atendimentoRepository = atendimentoRepository;
   }
@@ -68,9 +71,11 @@ public class AtendimentoService {
 
   // Deleta um atendimento pelo ID
   public void deleteAtendimento(Long id) {
-    atendimentoRepository.deleteById(id);
+    Atendimento atendimento = getAtendimentoById(id);
+    atendimentoRepository.delete(atendimento);
   }
 
+  // Valida um atendimento
   private void validarAtendimento(Atendimento atendimento)
     throws BadRequestException {
     if (
@@ -81,13 +86,11 @@ public class AtendimentoService {
     if (atendimento.getDataAtendimento() == null) {
       throw new DataInvalidaException("Data não pode ser nula");
     }
-
     if (atendimento.getDataAtendimento().isAfter(LocalDateTime.now())) {
       throw new DataInvalidaException(
         "Data de atendimento não pode ser no futuro"
       );
     }
-
     if (atendimento.getClinica() == null) {
       throw new BadRequestException("Clínica não pode ser nula");
     }
@@ -102,6 +105,7 @@ public class AtendimentoService {
     }
   }
 
+  // Calcula o valor total do atendimento
   public BigDecimal calcularValorTotalAtendimento(Atendimento atendimento) {
     BigDecimal valorTotal = BigDecimal.ZERO;
     for (Exame exame : atendimento.getExames()) {
@@ -111,43 +115,64 @@ public class AtendimentoService {
     return valorTotal;
   }
 
+  // Calcula o valor que o veterinário recebe
   public BigDecimal calcularValorVeterinarioRecebe(Atendimento atendimento) {
-    BigDecimal valorTotal = BigDecimal.ZERO; // Inicializa o BigDecimal com zero
+    BigDecimal valorTotal = BigDecimal.ZERO;
     for (Exame exame : atendimento.getExames()) {
-      valorTotal = valorTotal.add(exame.getValorExameVet()); // Usa o método add para adicionar valores BigDecimal
+      valorTotal = valorTotal.add(exame.getValorExameVet());
     }
     atendimento.setTotalVet(valorTotal);
     return valorTotal;
   }
 
-// Filtra os atendimentos por data
-  public List<Atendimento> filtrarAtendimentosPorData(LocalDateTime dataInicio, LocalDateTime dataFim) {
-    String dataInicioStr = dataInicio.toString(); // Converter LocalDateTime para String
-    String dataFimStr = dataFim.toString(); // Converter LocalDateTime para String
-    
+  // Filtra os atendimentos por data
+  public List<Atendimento> filtrarAtendimentosPorData(
+    LocalDateTime dataInicio,
+    LocalDateTime dataFim
+  ) {
     List<Atendimento> atendimentosFiltrados = new ArrayList<>();
-
-    // Itera sobre todos os atendimentos do repositório
     for (Atendimento atendimento : atendimentoRepository.findAll()) {
       LocalDateTime dataAtendimento = atendimento.getDataAtendimento();
-      // Verifica se a data do atendimento está dentro do intervalo especificado
-      if (dataAtendimento.isAfter(dataInicio) && dataAtendimento.isBefore(dataFim)) {
-        atendimentosFiltrados.add(atendimento); // Adiciona o atendimento à lista de atendimentos filtrados
+      if (
+        dataAtendimento.isAfter(dataInicio) && dataAtendimento.isBefore(dataFim)
+      ) {
+        atendimentosFiltrados.add(atendimento);
       }
     }
-
-    return atendimentosFiltrados; // Retorna a lista de atendimentos filtrados
+    return atendimentosFiltrados;
   }
 
-public Map<String, Long> obterQuantidadeAtendimentosPorCliente() {
-        List<Atendimento> atendimentos = atendimentoRepository.findAll();
-        Map<String, Long> quantidadePorCliente = new HashMap<>();
-
-        for (Atendimento atendimento : atendimentos) {
-            String cliente = atendimento.getPaciente();
-            quantidadePorCliente.put(cliente, quantidadePorCliente.getOrDefault(cliente, 0L) + 1);
-        }
-
-        return quantidadePorCliente;
+  // Obtém a quantidade de atendimentos por cliente
+  public Map<String, Long> obterQuantidadeAtendimentosPorCliente() {
+    List<Atendimento> atendimentos = atendimentoRepository.findAll();
+    Map<String, Long> quantidadePorCliente = new HashMap<>();
+    for (Atendimento atendimento : atendimentos) {
+      String cliente = atendimento.getPaciente();
+      quantidadePorCliente.put(
+        cliente,
+        quantidadePorCliente.getOrDefault(cliente, 0L) + 1
+      );
     }
+    return quantidadePorCliente;
+  }
+
+  // Busca atendimentos pelo nome do paciente
+  public List<Atendimento> buscarAtendimentoPorPaciente(String nomePaciente) {
+    if (nomePaciente == null || nomePaciente.isEmpty()) {
+      throw new IllegalArgumentException(
+        "O nome do paciente deve ser informado."
+      );
+    }
+    return atendimentoRepository.findByPaciente(nomePaciente);
+  }
+
+  // Busca atendimentos pelo nome da clínica
+  public List<Atendimento> buscarPorClinica(String nomeClinica) {
+    if (nomeClinica == null || nomeClinica.isEmpty()) {
+      throw new IllegalArgumentException(
+        "O nome da clínica deve ser informado."
+      );
+    }
+    return atendimentoRepository.findByClinicaNomeClinica(nomeClinica);
+  }
 }
