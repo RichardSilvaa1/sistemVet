@@ -42,7 +42,7 @@ public class Atendimento implements Serializable {
 
   @OneToMany(mappedBy = "atendimento", cascade = CascadeType.ALL)
   private List<Exame> exames;
-  
+
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
   private FormaPagamento formaPagamento;
@@ -55,33 +55,41 @@ public class Atendimento implements Serializable {
   private BigDecimal totalAtendimento;
 
   @Column(nullable = false)
+  private BigDecimal totalNf; // Novo campo para armazenar o valor do descontoNF
+
+  @Column(nullable = false)
+  private BigDecimal totalSound; // Novo campo para armazenar o valor do descontoSound
+
+  @Column(nullable = false)
   private BigDecimal totalVet;
-
-
-
-  public Atendimento() {}
 
   public Atendimento(
     Long id,
     Clinica clinica,
     String paciente,
     LocalDateTime dataAtendimento,
+    List<Exame> exames,
     FormaPagamento formaPagamento,
     Turno turno,
     BigDecimal totalAtendimento,
-    BigDecimal totalVet,
-    List<Exame> exames
+    BigDecimal totalNf,
+    BigDecimal totalSound,
+    BigDecimal totalVet
   ) {
     this.id = id;
     this.clinica = clinica;
     this.paciente = paciente;
     this.dataAtendimento = dataAtendimento;
+    this.exames = exames;
     this.formaPagamento = formaPagamento;
     this.turno = turno;
     this.totalAtendimento = totalAtendimento;
+    this.totalNf = totalNf;
+    this.totalSound = totalSound;
     this.totalVet = totalVet;
-    this.exames = exames;
   }
+
+  public Atendimento() {}
 
   public Long getId() {
     return id;
@@ -115,6 +123,14 @@ public class Atendimento implements Serializable {
     this.dataAtendimento = dataAtendimento;
   }
 
+  public List<Exame> getExames() {
+    return exames;
+  }
+
+  public void setExames(List<Exame> exames) {
+    this.exames = exames;
+  }
+
   public FormaPagamento getFormaPagamento() {
     return formaPagamento;
   }
@@ -139,6 +155,22 @@ public class Atendimento implements Serializable {
     this.totalAtendimento = totalAtendimento;
   }
 
+  public BigDecimal getTotalNf() {
+    return totalNf;
+  }
+
+  public void setTotalNf(BigDecimal totalNf) {
+    this.totalNf = totalNf;
+  }
+
+  public BigDecimal getTotalSound() {
+    return totalSound;
+  }
+
+  public void setTotalSound(BigDecimal totalSound) {
+    this.totalSound = totalSound;
+  }
+
   public BigDecimal getTotalVet() {
     return totalVet;
   }
@@ -147,29 +179,21 @@ public class Atendimento implements Serializable {
     this.totalVet = totalVet;
   }
 
-  public List<Exame> getExames() {
-    return exames;
-  }
-
-  public void setExames(List<Exame> exames) {
-    this.exames = exames;
-  }
-
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((id == null) ? 0 : id.hashCode());
-    return result;
-  }
-
-  
-
-
   @Override
   public String toString() {
-    return "Atendimento [clinica=" + clinica + ", paciente=" + paciente + ", dataAtendimento=" + dataAtendimento
-        + ", formaPagamento=" + formaPagamento + ", turno=" + turno + "]";
+    return (
+      "Atendimento [clinica=" +
+      clinica +
+      ", paciente=" +
+      paciente +
+      ", dataAtendimento=" +
+      dataAtendimento +
+      ", formaPagamento=" +
+      formaPagamento +
+      ", turno=" +
+      turno +
+      "]"
+    );
   }
 
   @Override

@@ -2,15 +2,12 @@ package com.sistem.sisvet.Entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 
@@ -31,9 +28,6 @@ public class Exame implements Serializable {
   @Column(nullable = false)
   private BigDecimal valorExame;
 
-  @ManyToOne
-  @JoinColumn(name = "desconto_id") //anotação é usada para especificar um relacionamento muitos-para-um entre entidades.
-  private List<Descontos> desconto;
 
   @Column(nullable = false)
   private BigDecimal valorExameVet;
@@ -43,11 +37,10 @@ public class Exame implements Serializable {
     
   }
 
-  public Exame(Long id, String tipoExame, BigDecimal valorExame, List<Descontos> desconto, BigDecimal valorExameVet) {
+  public Exame(Long id, String tipoExame, BigDecimal valorExame, BigDecimal valorExameVet) {
     this.id = id;
     this.tipoExame = tipoExame;
     this.valorExame = valorExame;
-    this.desconto = desconto;
     this.valorExameVet = valorExameVet;
   }
 
@@ -83,13 +76,6 @@ public class Exame implements Serializable {
     this.valorExame = valorExame;
   }
 
-  public List<Descontos> getDesconto() {
-    return desconto;
-  }
-
-  public void setDesconto(List<Descontos> desconto) {
-    this.desconto = desconto;
-  }
 
   public BigDecimal getValorExameVet() {
     return valorExameVet;

@@ -6,7 +6,8 @@ public enum FormaPagamento {
    PIX_VET(2,"Pix Vet"),
    NO_FARO(3, "NoFaro"),
    CARTAO(4,"Cartão"),
-   CADERNO (5,"Caderno");
+   CADERNO (5,"Caderno"),
+   DINHEIRO (6,"Dinheiro");
     
 private final int codigo;
 private final String descricao;
@@ -21,9 +22,6 @@ public int getCodigo() {
 public String getDescricao() {
     return descricao;
 }
-
-
-
     
 
 }

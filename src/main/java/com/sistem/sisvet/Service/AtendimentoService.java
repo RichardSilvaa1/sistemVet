@@ -1,7 +1,6 @@
 package com.sistem.sisvet.Service;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import com.sistem.sisvet.Entities.Atendimento;
 import com.sistem.sisvet.Entities.Exame;
-import com.sistem.sisvet.Entities.Enums.FormaPagamento;
 import com.sistem.sisvet.Exceptions.DataInvalidaException;
 import com.sistem.sisvet.Repositories.AtendimentoRepository;
 
@@ -23,12 +21,17 @@ import com.sistem.sisvet.Repositories.AtendimentoRepository;
 public class AtendimentoService {
 
   @Autowired
-  private final AtendimentoRepository atendimentoRepository;
+    private final AtendimentoRepository atendimentoRepository;
 
-  // Construtor
-  public AtendimentoService(AtendimentoRepository atendimentoRepository) {
-    this.atendimentoRepository = atendimentoRepository;
-  }
+    @Autowired
+    private final ComissaoVerinarioService comissaoVerinarioService;
+
+    // Construtor
+    public AtendimentoService(AtendimentoRepository atendimentoRepository,
+                              ComissaoVerinarioService comissaoVerinarioService) {
+        this.atendimentoRepository = atendimentoRepository;
+        this.comissaoVerinarioService = comissaoVerinarioService;
+    }
 
   // Retorna todos os atendimentos
   public List<Atendimento> getAllAtendimentos() {
@@ -47,29 +50,27 @@ public class AtendimentoService {
   }
 
   // Salva um novo atendimento após validar e calcular valores
-  public Atendimento saveAtendimento(Atendimento atendimento)
-    throws BadRequestException {
-    validarAtendimento(atendimento);
-    atendimento.setTotalAtendimento(calcularValorTotalAtendimento(atendimento));
-    atendimento.setTotalVet(calcularValorVeterinarioRecebe(atendimento));
-    return atendimentoRepository.save(atendimento);
-  }
+public Atendimento saveAtendimento(Atendimento atendimento) throws BadRequestException {
+  validarAtendimento(atendimento);
+  atendimento.setTotalAtendimento(calcularValorTotalAtendimento(atendimento));
+  atendimento.setTotalAtendimento(comissaoVerinarioService.calcularValorVeterinarioRecebe(atendimento));
+  return atendimentoRepository.save(atendimento);
+}
 
-  // Atualiza um atendimento existente após validar e calcular valores
-  public Atendimento updateAtendimento(Long id, Atendimento atendimentoDetails)
-    throws BadRequestException {
-    Atendimento atendimento = getAtendimentoById(id);
-    validarAtendimento(atendimentoDetails);
-    atendimento.setPaciente(atendimentoDetails.getPaciente());
-    atendimento.setDataAtendimento(atendimentoDetails.getDataAtendimento());
-    atendimento.setClinica(atendimentoDetails.getClinica());
-    atendimento.setTurno(atendimentoDetails.getTurno());
-    atendimento.setExames(atendimentoDetails.getExames());
-    atendimento.setFormaPagamento(atendimentoDetails.getFormaPagamento());
-    atendimento.setTotalAtendimento(calcularValorTotalAtendimento(atendimento));
-    atendimento.setTotalVet(calcularValorVeterinarioRecebe(atendimento));
-    return atendimentoRepository.save(atendimento);
-  }
+// Atualiza um atendimento existente após validar e calcular valores
+public Atendimento updateAtendimento(Long id, Atendimento atendimentoDetails) throws BadRequestException {
+  Atendimento atendimento = getAtendimentoById(id);
+  validarAtendimento(atendimentoDetails);
+  atendimento.setPaciente(atendimentoDetails.getPaciente());
+  atendimento.setDataAtendimento(atendimentoDetails.getDataAtendimento());
+  atendimento.setClinica(atendimentoDetails.getClinica());
+  atendimento.setTurno(atendimentoDetails.getTurno());
+  atendimento.setExames(atendimentoDetails.getExames());
+  atendimento.setFormaPagamento(atendimentoDetails.getFormaPagamento());
+  atendimento.setTotalAtendimento(calcularValorTotalAtendimento(atendimento));
+  atendimento.setTotalVet(comissaoVerinarioService.calcularValorVeterinarioRecebe(atendimento)); // Atualização do valor veterinário recebido // Atualização do valor veterinário recebido
+  return atendimentoRepository.save(atendimento);
+}
 
   // Deleta um atendimento pelo ID
   public void deleteAtendimento(Long id) {
@@ -117,26 +118,6 @@ public class AtendimentoService {
     return valorTotal;
   }
 
-  // Calcula o valor que o veterinário recebe
-  // Declara a função `calcularValorVeterinarioRecebe` que recebe um objeto `Atendimento` como entrada e retorna um `BigDecimal`.
-  public BigDecimal calcularValorVeterinarioRecebe(Atendimento atendimento) {
-    // Itera por cada exame no objeto `atendimento` usando um loop `for`.
-   calcularValorTotalAtendimento(atendimento); // Certifique-se de calcular o valor total primeiro
-
-        double valorTotal = atendimento.getTotalAtendimento().doubleValue();
-        double descontoNf = 0.18;
-        double descontoSound = 0.15;
-
-        if (atendimento.getFormaPagamento() == FormaPagamento.CADERNO ||
-                atendimento.getFormaPagamento() == FormaPagamento.PIX_VET ||
-                atendimento.getFormaPagamento() == FormaPagamento.NO_FARO) {
-            valorTotal -= valorTotal * descontoNf;
-        } else {
-            valorTotal -= valorTotal * descontoSound;
-        }
-
-        atendimento.setTotalVet(BigDecimal.valueOf(valorTotal).setScale(2, RoundingMode.HALF_UP));
-    }
 
   // Filtra os atendimentos por data
   public List<Atendimento> filtrarAtendimentosPorData(
