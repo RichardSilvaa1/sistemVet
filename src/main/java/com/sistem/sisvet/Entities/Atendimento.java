@@ -61,21 +61,17 @@ public class Atendimento implements Serializable {
   private BigDecimal totalSound; // Novo campo para armazenar o valor do descontoSound
 
   @Column(nullable = false)
+  private double aluguelAparelho;// desconto do aluguel aparelho
+
+  @Column(nullable = false)
   private BigDecimal totalVet;
 
-  public Atendimento(
-    Long id,
-    Clinica clinica,
-    String paciente,
-    LocalDateTime dataAtendimento,
-    List<Exame> exames,
-    FormaPagamento formaPagamento,
-    Turno turno,
-    BigDecimal totalAtendimento,
-    BigDecimal totalNf,
-    BigDecimal totalSound,
-    BigDecimal totalVet
-  ) {
+
+  
+
+  public Atendimento(Long id, Clinica clinica, String paciente, LocalDateTime dataAtendimento, List<Exame> exames,
+      FormaPagamento formaPagamento, Turno turno, BigDecimal totalAtendimento, BigDecimal totalNf,
+      BigDecimal totalSound, double aluguelAparelho, BigDecimal totalVet) {
     this.id = id;
     this.clinica = clinica;
     this.paciente = paciente;
@@ -86,98 +82,187 @@ public class Atendimento implements Serializable {
     this.totalAtendimento = totalAtendimento;
     this.totalNf = totalNf;
     this.totalSound = totalSound;
+    this.aluguelAparelho = aluguelAparelho;
     this.totalVet = totalVet;
   }
 
-  public Atendimento() {}
+
+
+
+  public Atendimento(){
+
+  }
+
+  
+
 
   public Long getId() {
     return id;
   }
 
+
+
+
   public void setId(Long id) {
     this.id = id;
   }
+
+
+
 
   public Clinica getClinica() {
     return clinica;
   }
 
+
+
+
   public void setClinica(Clinica clinica) {
     this.clinica = clinica;
   }
+
+
+
 
   public String getPaciente() {
     return paciente;
   }
 
+
+
+
   public void setPaciente(String paciente) {
     this.paciente = paciente;
   }
+
+
+
 
   public LocalDateTime getDataAtendimento() {
     return dataAtendimento;
   }
 
+
+
+
   public void setDataAtendimento(LocalDateTime dataAtendimento) {
     this.dataAtendimento = dataAtendimento;
   }
+
+
+
 
   public List<Exame> getExames() {
     return exames;
   }
 
+
+
+
   public void setExames(List<Exame> exames) {
     this.exames = exames;
   }
+
+
+
 
   public FormaPagamento getFormaPagamento() {
     return formaPagamento;
   }
 
+
+
+
   public void setFormaPagamento(FormaPagamento formaPagamento) {
     this.formaPagamento = formaPagamento;
   }
+
+
+
 
   public Turno getTurno() {
     return turno;
   }
 
+
+
+
   public void setTurno(Turno turno) {
     this.turno = turno;
   }
+
+
+
 
   public BigDecimal getTotalAtendimento() {
     return totalAtendimento;
   }
 
+
+
+
   public void setTotalAtendimento(BigDecimal totalAtendimento) {
     this.totalAtendimento = totalAtendimento;
   }
+
+
+
 
   public BigDecimal getTotalNf() {
     return totalNf;
   }
 
+
+
+
   public void setTotalNf(BigDecimal totalNf) {
     this.totalNf = totalNf;
   }
+
+
+
 
   public BigDecimal getTotalSound() {
     return totalSound;
   }
 
+
+
+
   public void setTotalSound(BigDecimal totalSound) {
     this.totalSound = totalSound;
   }
+
+
+
+
+  public double getAluguelAparelho() {
+    return aluguelAparelho;
+  }
+
+
+
+
+  public void setAluguelAparelho(double aluguelAparelho) {
+    this.aluguelAparelho = aluguelAparelho;
+  }
+
+
+
 
   public BigDecimal getTotalVet() {
     return totalVet;
   }
 
+
+
+
   public void setTotalVet(BigDecimal totalVet) {
     this.totalVet = totalVet;
   }
+
+
+
 
   @Override
   public String toString() {
