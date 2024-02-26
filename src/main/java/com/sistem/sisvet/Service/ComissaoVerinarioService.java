@@ -44,6 +44,7 @@ public class ComissaoVerinarioService {
                 break;
             case DINHEIRO:
             case CARTAO:
+            case PIX:
                 // Desconto apenas da Sound.
                 descontoSoundValor = valorTotal.multiply(BigDecimal.valueOf(descontoSound)).setScale(2, RoundingMode.HALF_UP);
                 valorTotal = valorTotal.subtract(descontoSoundValor);
