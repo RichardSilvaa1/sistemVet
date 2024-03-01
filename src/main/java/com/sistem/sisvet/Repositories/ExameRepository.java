@@ -1,6 +1,8 @@
 // Pacote onde está localizado o repositório
 package com.sistem.sisvet.Repositories;
 
+import java.util.List;
+
 // Importação da interface JpaRepository do Spring Data JPA
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -9,6 +11,8 @@ import com.sistem.sisvet.Entities.Exame;
 
 // Declaração da interface ExameRepository que estende JpaRepository
 public interface ExameRepository extends JpaRepository<Exame, Long> {
+
+    List<Exame> findByTipoExame(String tipoExame);
     // Nenhum método adicional é necessário aqui, pois JpaRepository fornece métodos CRUD padrão
     // A interface JpaRepository já inclui métodos como save(), findById(), deleteById(), findAll(), etc.
     // A interface JpaRepository é parametrizada com dois tipos:

@@ -61,17 +61,15 @@ public class Atendimento implements Serializable {
   private BigDecimal totalSound; // Novo campo para armazenar o valor do descontoSound
 
   @Column(nullable = false)
-  private double aluguelAparelho;// desconto do aluguel aparelho
+  private BigDecimal aluguelAparelho;// desconto do aluguel aparelho
 
   @Column(nullable = false)
   private BigDecimal totalVet;
 
 
-  
-
   public Atendimento(Long id, Clinica clinica, String paciente, LocalDateTime dataAtendimento, List<Exame> exames,
       FormaPagamento formaPagamento, Turno turno, BigDecimal totalAtendimento, BigDecimal totalNf,
-      BigDecimal totalSound, double aluguelAparelho, BigDecimal totalVet) {
+      BigDecimal totalSound, BigDecimal aluguelAparelho, BigDecimal totalVet) {
     this.id = id;
     this.clinica = clinica;
     this.paciente = paciente;
@@ -86,20 +84,11 @@ public class Atendimento implements Serializable {
     this.totalVet = totalVet;
   }
 
-
-
-
-  public Atendimento(){
-
-  }
-
   
-
 
   public Long getId() {
     return id;
   }
-
 
 
 
@@ -109,11 +98,9 @@ public class Atendimento implements Serializable {
 
 
 
-
   public Clinica getClinica() {
     return clinica;
   }
-
 
 
 
@@ -123,11 +110,9 @@ public class Atendimento implements Serializable {
 
 
 
-
   public String getPaciente() {
     return paciente;
   }
-
 
 
 
@@ -137,11 +122,9 @@ public class Atendimento implements Serializable {
 
 
 
-
   public LocalDateTime getDataAtendimento() {
     return dataAtendimento;
   }
-
 
 
 
@@ -151,11 +134,9 @@ public class Atendimento implements Serializable {
 
 
 
-
   public List<Exame> getExames() {
     return exames;
   }
-
 
 
 
@@ -165,11 +146,9 @@ public class Atendimento implements Serializable {
 
 
 
-
   public FormaPagamento getFormaPagamento() {
     return formaPagamento;
   }
-
 
 
 
@@ -179,11 +158,9 @@ public class Atendimento implements Serializable {
 
 
 
-
   public Turno getTurno() {
     return turno;
   }
-
 
 
 
@@ -193,11 +170,9 @@ public class Atendimento implements Serializable {
 
 
 
-
   public BigDecimal getTotalAtendimento() {
     return totalAtendimento;
   }
-
 
 
 
@@ -207,11 +182,9 @@ public class Atendimento implements Serializable {
 
 
 
-
   public BigDecimal getTotalNf() {
     return totalNf;
   }
-
 
 
 
@@ -221,11 +194,9 @@ public class Atendimento implements Serializable {
 
 
 
-
   public BigDecimal getTotalSound() {
     return totalSound;
   }
-
 
 
 
@@ -235,18 +206,15 @@ public class Atendimento implements Serializable {
 
 
 
-
-  public double getAluguelAparelho() {
+  public BigDecimal getAluguelAparelho() {
     return aluguelAparelho;
   }
 
 
 
-
-  public void setAluguelAparelho(double aluguelAparelho) {
+  public void setAluguelAparelho(BigDecimal aluguelAparelho) {
     this.aluguelAparelho = aluguelAparelho;
   }
-
 
 
 
@@ -256,11 +224,9 @@ public class Atendimento implements Serializable {
 
 
 
-
   public void setTotalVet(BigDecimal totalVet) {
     this.totalVet = totalVet;
   }
-
 
 
 

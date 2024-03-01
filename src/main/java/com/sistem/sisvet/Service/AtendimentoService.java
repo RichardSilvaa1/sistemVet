@@ -24,14 +24,22 @@ public class AtendimentoService {
     private final AtendimentoRepository atendimentoRepository;
 
     @Autowired
-    private final ComissaoVerinarioService comissaoVerinarioService;
+    private final ComissaoVeterinarioService comissaoVerinarioService;
 
     // Construtor
     public AtendimentoService(AtendimentoRepository atendimentoRepository,
-                              ComissaoVerinarioService comissaoVerinarioService) {
+                              ComissaoVeterinarioService comissaoVeterinarioService) {
         this.atendimentoRepository = atendimentoRepository;
-        this.comissaoVerinarioService = comissaoVerinarioService;
+        this.comissaoVerinarioService = comissaoVeterinarioService;
     }
+
+      // Salva um novo atendimento após validar e calcular valores
+public Atendimento saveAtendimento(Atendimento atendimento) throws BadRequestException {
+  validarAtendimento(atendimento);
+  atendimento.setTotalAtendimento(calcularValorTotalAtendimento(atendimento));
+  atendimento.setTotalAtendimento(comissaoVerinarioService.calcularValorVeterinarioRecebe(atendimento));
+  return atendimentoRepository.save(atendimento);
+}
 
   // Retorna todos os atendimentos
   public List<Atendimento> getAllAtendimentos() {
@@ -49,14 +57,6 @@ public class AtendimentoService {
       );
   }
 
-  // Salva um novo atendimento após validar e calcular valores
-public Atendimento saveAtendimento(Atendimento atendimento) throws BadRequestException {
-  validarAtendimento(atendimento);
-  atendimento.setTotalAtendimento(calcularValorTotalAtendimento(atendimento));
-  atendimento.setTotalAtendimento(comissaoVerinarioService.calcularValorVeterinarioRecebe(atendimento));
-  return atendimentoRepository.save(atendimento);
-}
-
 // Atualiza um atendimento existente após validar e calcular valores
 public Atendimento updateAtendimento(Long id, Atendimento atendimentoDetails) throws BadRequestException {
   Atendimento atendimento = getAtendimentoById(id);
@@ -68,6 +68,7 @@ public Atendimento updateAtendimento(Long id, Atendimento atendimentoDetails) th
   atendimento.setExames(atendimentoDetails.getExames());
   atendimento.setFormaPagamento(atendimentoDetails.getFormaPagamento());
   atendimento.setTotalAtendimento(calcularValorTotalAtendimento(atendimento));
+  atendimento.setAluguelAparelho(atendimento.getAluguelAparelho());
   atendimento.setTotalVet(comissaoVerinarioService.calcularValorVeterinarioRecebe(atendimento)); // Atualização do valor veterinário recebido // Atualização do valor veterinário recebido
   return atendimentoRepository.save(atendimento);
 }

@@ -29,21 +29,18 @@ public class Exame implements Serializable {
   private BigDecimal valorExame;
 
 
-  @Column(nullable = false)
-  private BigDecimal valorExameVet;
-
-
   public Exame(){
     
   }
 
-  public Exame(Long id, String tipoExame, BigDecimal valorExame, BigDecimal valorExameVet) {
+  
+
+
+  public Exame(Long id, String tipoExame, BigDecimal valorExame) {
     this.id = id;
     this.tipoExame = tipoExame;
     this.valorExame = valorExame;
-    this.valorExameVet = valorExameVet;
   }
-
 
 
 
@@ -52,38 +49,49 @@ public class Exame implements Serializable {
     return serialVersionUID;
   }
 
+
+
+
   public Long getId() {
     return id;
   }
+
+
+
 
   public void setId(Long id) {
     this.id = id;
   }
 
+
+
+
   public String getTipoExame() {
     return tipoExame;
   }
+
+
+
 
   public void setTipoExame(String tipoExame) {
     this.tipoExame = tipoExame;
   }
 
+
+
+
   public BigDecimal getValorExame() {
     return valorExame;
   }
+
+
+
 
   public void setValorExame(BigDecimal valorExame) {
     this.valorExame = valorExame;
   }
 
 
-  public BigDecimal getValorExameVet() {
-    return valorExameVet;
-  }
-
-  public void setValorExameVet(BigDecimal valorExameVet) {
-    this.valorExameVet = valorExameVet;
-  }
 
 
   @Override
