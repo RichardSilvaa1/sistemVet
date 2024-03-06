@@ -24,7 +24,7 @@ import com.sistem.sisvet.Service.AtendimentoService;
 
 @RestController
 @RequestMapping("/atendimentos")
-public class AtendimentoController {
+public class atendimentoController{
 
     @Autowired
     private AtendimentoService atendimentoService;
@@ -85,6 +85,12 @@ public class AtendimentoController {
         // Filtra os atendimentos por data usando o serviço e retorna a resposta HTTP adequada
         List<Atendimento> atendimentosFiltrados = atendimentoService.filtrarAtendimentosPorData(dataInicial, dataFinal);
         return new ResponseEntity<>(atendimentosFiltrados, HttpStatus.OK);
+    }
+    
+    @GetMapping("/buscar-por-clinica")
+    public ResponseEntity<List<Atendimento>> buscarPorClinica(@RequestParam(name = "nomeClinica") String nomeClinica) {
+        List<Atendimento> atendimentos = atendimentoService.buscarPorClinica(nomeClinica);
+        return new ResponseEntity<>(atendimentos, HttpStatus.OK);
     }
 }
 

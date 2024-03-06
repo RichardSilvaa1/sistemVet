@@ -1,5 +1,5 @@
 package com.sistem.sisvet.Controller;
 
-public class ExameController {
+public class exameController {
     
 }

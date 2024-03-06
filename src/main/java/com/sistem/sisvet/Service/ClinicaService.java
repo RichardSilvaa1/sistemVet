@@ -4,7 +4,6 @@ package com.sistem.sisvet.Service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +13,10 @@ import com.sistem.sisvet.Repositories.ClinicaRepository;
 @Service
 public class ClinicaService {
 
-    @Autowired
-    private ClinicaRepository clinicaRepository;
+    
+    private final ClinicaRepository clinicaRepository;
 
+    
     public ClinicaService(ClinicaRepository clinicaRepository){
       this.clinicaRepository = clinicaRepository;
     }
@@ -53,5 +53,10 @@ public class ClinicaService {
     // Método para buscar todas as clínicas
     public List<Clinica> buscarTodasClinicas() {
         return clinicaRepository.findAll();
+    }
+
+     // Método para buscar uma clínica pelo nome
+     public List<Clinica> buscarClinicaPorNome(String nomeClinica) {
+        return clinicaRepository.findByNomeClinica(nomeClinica);
     }
 }
