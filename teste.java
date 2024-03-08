@@ -1,9 +1,5 @@
-// Calcula o valor que o veterinário recebe
-public BigDecimal calcularValorVeterinarioRecebe(Atendimento atendimento) {
-    BigDecimal valorTotal = atendimento.getTotalAtendimento();
-    for (Exame exame : atendimento.getExames()) {
-      valorTotal = valorTotal.add(exame.getValorExameVet());
-    }
-    atendimento.setTotalVet(valorTotal);
-    return valorTotal;
-  }
+/ Verifica se o turno é "plantão":
+if (atendimento.getTurno() == Turno.PLANTAO) {
+    // Desconto específico para plantão (110 unidades):
+    valorTotal = valorTotal.subtract(BigDecimal.valueOf(descontoPlantaoSound));
+} else {
