@@ -66,6 +66,10 @@ public class Atendimento implements Serializable {
   @Column(nullable = false)
   private BigDecimal totalVet;
 
+  public Atendimento(){
+    
+  }
+
 
   public Atendimento(Long id, Clinica clinica, String paciente, LocalDateTime dataAtendimento, List<Exame> exames,
       FormaPagamento formaPagamento, Turno turno, BigDecimal totalAtendimento, BigDecimal totalNf,

@@ -40,7 +40,7 @@ public class clinicaController {
   }
 
   // Chamada para atualizar clínica
-  @GetMapping("{/id}") // Mapeamento para requisições GET com parâmetro no URL
+  @GetMapping("/{id}") // Mapeamento para requisições GET com parâmetro no URL
   public ResponseEntity<Clinica> atualizarClinica(
     @PathVariable Long id, // Captura o ID da URL
     @RequestBody Clinica clinica // Obtém a clínica do corpo da requisição

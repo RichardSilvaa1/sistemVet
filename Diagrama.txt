@@ -1,240 +1,177 @@
-crie o diagrama textual de classes apartiri disso
-
-Implementação completa do código Spring Boot para o diagrama:
-Lógica de Negócio:
-
-Atendimento:
-
-Calcular valor total do atendimento (somando valor dos exames para chegar no total do atendimento).
-Calcular valor que o veterinário recebe (soma o valor a receber de cada exame formando o valor total).
-Exame:
-
-recebe o valor cadastrado do exame.
-Calcular valor que o veterinário recebe pelo exame (deduzindo conforme os descontos).
-Desconto:
-
-Validar se o desconto é válido para o tipo de exame.
-Entidades JPA:
-
-Atendimento:
-Mapeamento das propriedades: id, paciente, data, clinica, exames, formaPagamento, valorTotalAtendimento, valorTotalVeterinarioRecebe.
-Exame:
-Mapeamento das propriedades: id, tipoExame, turno, descontos, valorExame, valorExameVet.
-Clinica:
-Mapeamento das propriedades: id, nomeClinica.
-Desconto:
-Mapeamento das propriedades: id, tipoDesc, valorDesc.
-Controllers RESTful:
-
-AtendimentoController:
-Endpoints para:
-GET /atendimentos: Buscar todos os atendimentos.
-GET /atendimentos/{id}: Buscar um atendimento por ID.
-POST /atendimentos: Criar um novo atendimento.
-PUT /atendimentos/{id}: Atualizar um atendimento por ID.
-DELETE /atendimentos/{id}: Excluir um atendimento por ID.
-ExameController:
-Endpoints para:
-GET /exames: Buscar todos os exames.
-GET /exames/{id}: Buscar um exame por ID.
-POST /exames: Criar um novo exame.
-PUT /exames/{id}: Atualizar um exame por ID.
-DELETE /exames/{id}: Excluir um exame por ID.
-ClinicaController:
-Endpoints para:
-GET /clinicas: Buscar todas as clínicas.
-GET /clinicas/{id}: Buscar uma clínica por ID.
-POST /clinicas: Criar uma nova clínica.
-PUT /clinicas/{id}: Atualizar uma clínica por ID.
-DELETE /clinicas/{id}: Excluir uma clínica por ID.
-DescontoController:
-Endpoints para:
-GET /descontos: Buscar todos os descontos.
-GET /descontos/{id}: Buscar um desconto por ID.
-Serviços:
-
-AtendimentoService:
-Implementação da lógica de negócio para Atendimento.
-Métodos para:
-Buscar todos os atendimentos.
-Buscar um atendimento por ID.
-Salvar um novo atendimento.
-Atualizar um atendimento por ID.
-Excluir um atendimento por ID.
-ExameService:
-Implementação da lógica de negócio para Exame.
-Métodos para:
-Buscar todos os exames.
-Buscar um exame por ID.
-Salvar um novo exame.
-Atualizar um exame por ID.
-Excluir um exame por ID.
-ClinicaService:
-Implementação da lógica de negócio para Clinica.
-Métodos para:
-Buscar todas as clínicas.
-Buscar uma clínica por ID.
-Salvar uma nova clínica.
-Atualizar uma clínica por ID.
-Excluir uma clínica por ID.
-DescontoService:
-Implementação da lógica de negócio para Desconto.
-Métodos para:
-Buscar todos os descontos.
-Buscar um desconto por ID.
-
 +---------------------------------+
 |           Atendimento           |
 +---------------------------------+
 | - id: Long                      |
-| - paciente: String              |
-| - data: LocalDateTime           |
 | - clinica: Clinica             |
-| - exames: List<Exame>         |
+| - paciente: String              |
+| - dataAtendimento: LocalDateTime|
+| - exames: List<Exame>           |
 | - formaPagamento: FormaPagamento|
-| - valorTotal: BigDecimal|
-| - valorTotalVet: BigDecimal |
+| - turno: Turno                  |
+| - totalAtendimento: BigDecimal  |
+| - totalNf: BigDecimal           |
+| - totalSound: BigDecimal        |
+| - aluguelAparelho: BigDecimal  |
+| - totalVet: BigDecimal         |
 +---------------------------------+
-|
-+---------------------------------+
-
-+---------------------------------+
-|              Exame              |
-+---------------------------------+
-| - id: Long                      |
-| - tipoExame: String 
-| - turno Turno            |            |
-   - atendimento: atendimento    |
-| - valorExame: double            |
-|         |
-+---------------------------------+
-| 
+| - Construtor com todos os atributos
+| - Getters e setters para todos os atributos
+| - toString()
+| - equals(Object obj)
 +---------------------------------+
 
 +---------------------------------+
-|             Desconto            |
-+---------------------------------+
-| - id: Long                      |
-| - tipoDesc: String              |
-| - valorDesc: double             |
-+---------------------------------+
-| \
-+---------------------------------+
-
-+---------------------------------+
-|             Clinica             |
+|            Clinica              |
 +---------------------------------+
 | - id: Long                      |
 | - nomeClinica: String           |
 +---------------------------------+
-+---------------------------------------+
-|          enum FormaPagamento              |
-+---------------------------------------+
-| - DINHEIRO                         |
-| - PIX                    |
-| - NO FARO                      |
-| - PIXVET                             |
-+---------------------------------------+
-
-
-+---------------------------------------+
-|               TurnoExame                   |
-+---------------------------------------+
-| - MANHA                              |
-| - TARDE                              |
-| - NOITE                              |
-| - COMERCIAL                          |
-| - PLANTAO                            |
-| - SABADO                             |
-| - PLANTAO_MEIA_NOITE                 |
-+---------------------------------------+
+| - Construtor com todos os atributos
+| - Getters e setters para todos os atributos
+| - hashCode()
+| - equals(Object obj)
++---------------------------------+
 
 +---------------------------------+
-|        AtendimentoService       |
+|             Exame               |
++---------------------------------+
+| - id: Long                      |
+| - tipoExame: String             |
+| - valorExame: BigDecimal       |
++---------------------------------+
+| - Construtor vazio              |
+| - Construtor com todos os atributos
+| - Getters e setters para todos os atributos
+| - hashCode()
+| - equals(Object obj)
++---------------------------------+
+
++---------------------------------+
+|             Enum Turno               |
++---------------------------------+
+|  COMERCIAL
+   PLANTAO
+   SABADO
+   PLANTAO_MEIA_NOITE           |
++---------------------------------+
+
++---------------------------------+
+|         Enum FormaPagamento          |
++---------------------------------+
+| - PIX                           |
+| - PIX_VET                       |
+| - NO_FARO                       |
+| - CARTAO                        |
+| - CADERNO                       |
+| - DINHEIRO                      |
++---------------------------------+
+
++---------------------------------+
+|     AtendimentoController       |
++---------------------------------+
+| - criarAtendimento(Atendimento atendimento): ResponseEntity<Atendimento>
+| - listarAtendimentos(): ResponseEntity<List<Atendimento>>
+| - buscarAtendimentoPorId(Long id): ResponseEntity<Atendimento>
+| - atualizarAtendimento(Long id, Atendimento atendimento): ResponseEntity<Atendimento>
+| - excluirAtendimento(Long id): ResponseEntity<Void>
+| - obterQuantidadeAtendimentosPorCliente(): ResponseEntity<Map<String, Long>>
+| - filtrarAtendimentosPorData(LocalDateTime dataInicial, LocalDateTime dataFinal): ResponseEntity<List<Atendimento>>
+| - buscarPorClinica(String nomeClinica): ResponseEntity<List<Atendimento>>
++---------------------------------+
+
++---------------------------------+
+|       ClinicaController         |
++---------------------------------+
+| - criarClinica(Clinica clinica): ResponseEntity<Clinica>
+| - listarClinicas(): ResponseEntity<List<Clinica>>
+| - atualizarClinica(Long id, Clinica clinica): ResponseEntity<Clinica>
+| - excluirClinica(Long id): ResponseEntity<Void>
+| - buscarPorNome(String nomeClinica): ResponseEntity<List<Clinica>>
++---------------------------------+
+
++---------------------------------+
+|       ExamesController          |
++---------------------------------+
+| - criarExame(Exame exame): ResponseEntity<Exame>
+| - buscarExame(Long id): ResponseEntity<Exame>
+| - listarExames(): ResponseEntity<List<Exame>>
+| - atualizarExame(Long id, Exame exameDetalhes): ResponseEntity<Exame>
+| - deletarExame(Long id): ResponseEntity<Void>
+| - buscarExamesPorTipo(String tipoExame): ResponseEntity<List<Exame>>
++---------------------------------+
+
++---------------------------------+
+|      AtendimentoService         |
 +---------------------------------+
 | - atendimentoRepository: AtendimentoRepository |
+| - comissaoVeterinarioService: ComissaoVeterinarioService |
 +---------------------------------+
-| + getAllAtendimentos() : List<Atendimento> |
-| + getAtendimentoById(Long id) : Atendimento |
-| + saveAtendimento(Atendimento atendimento) : Atendimento |
-| + updateAtendimento(Long id, Atendimento atendimento) : Atendimento |
-| + deleteAtendimento(Long id) : void |
-| + calcularValorTotalAtendimento(Atendimento atendimento) : double |
-| + calcularValorVeterinarioRecebe(Atendimento atendimento) : double |
+| - saveAtendimento(Atendimento): Atendimento
+| - getAllAtendimentos(): List<Atendimento>
+| - getAtendimentoById(Long): Atendimento
+| - updateAtendimento(Long, Atendimento): Atendimento
+| - deleteAtendimento(Long): void
+| - validarAtendimento(Atendimento): void
+| - calcularValorTotalAtendimento(Atendimento): BigDecimal
+| - filtrarAtendimentosPorData(LocalDateTime, LocalDateTime): List<Atendimento>
+| - obterQuantidadeAtendimentosPorCliente(): Map<String, Long>
+| - buscarAtendimentoPorPaciente(String): List<Atendimento>
+| - buscarPorClinica(String): List<Atendimento>
 +---------------------------------+
 
 +---------------------------------+
-|           ExameService          |
+|        ClinicaService           |
++---------------------------------+
+| - clinicaRepository: ClinicaRepository |
++---------------------------------+
+| - criarClinica(Clinica): Clinica
+| - buscarClinicaPorId(Long): Clinica
+| - atualizarClinica(Long, Clinica): Clinica
+| - deletarClinica(Long): void
+| - buscarTodasClinicas(): List<Clinica>
+| - buscarClinicaPorNome(String): List<Clinica>
++---------------------------------+
+
++---------------------------------+
+| ComissaoVeterinarioService      |
++---------------------------------+
+| - calcularValorVeterinarioRecebe(Atendimento): BigDecimal
++---------------------------------+
+
++---------------------------------+
+|        ExameService             |
 +---------------------------------+
 | - exameRepository: ExameRepository |
-| - descontoService: DescontoService |
 +---------------------------------+
-| + getAllExames() : List<Exame> |
-| + getExameById(Long id) : Exame |
-| + saveExame(Exame exame) : Exame |
-| + updateExame(Long id, Exame exame) : Exame |
-| + deleteExame(Long id) : void |
-| + calcularValorVeterinarioRecebe(Exame exame) : double |
-  + validarDesconto(Desconto desconto, Exame exame) : boolean |
+| - criarExame(Exame): Exame
+| - buscarExame(Long): Exame
+| - buscarExame(): List<Exame>
+| - atualizaExame(Long, Exame): Exame
+| - deletarExame(Long): void
+| - buscarTipoExame(String): List<Exame>
 +---------------------------------+
 
 +---------------------------------+
-|         DescontoService         |
+|   AtendimentoRepository         |
 +---------------------------------+
-| - descontoRepository: DescontoRepository |
+| - Extends: JpaRepository<Atendimento, Long> |
 +---------------------------------+
-| + getAllDescontos() : List<Desconto> |
-| + getDescontoById(Long id) : Desconto |
-| + saveDesconto(Desconto desconto) : Desconto |
-| + updateDesconto(Long id, Desconto desconto) : Desconto |
-| + deleteDesconto(Long id) : void |
-
+| - List<Atendimento> findByClinicaNomeClinica(String nomeClinica)
+| - List<Atendimento> findByPaciente(String paciente)
 +---------------------------------+
 
 +---------------------------------+
-|        AtendimentoController   |
+|   ClinicaRepository             |
 +---------------------------------+
-| - atendimentoService: AtendimentoService |
+| - Extends: JpaRepository<Clinica, Long> |
 +---------------------------------+
-| + getAllAtendimentos() : List<Atendimento> |
-| + getAtendimentoById(Long id) : Atendimento |
-| + createAtendimento(Atendimento atendimento) : Atendimento |
-| + updateAtendimento(Long id, Atendimento atendimento) : Atendimento |
-| + deleteAtendimento(Long id) : ResponseEntity<Void> |
+| - List<Clinica> findByNomeClinica(String nomeClinica)
 +---------------------------------+
 
 +---------------------------------+
-|           ExameController      |
+|   ExameRepository               |
 +---------------------------------+
-| - exameService: ExameService |
+| - Extends: JpaRepository<Exame, Long> |
 +---------------------------------+
-| + getAllExames() : List<Exame> |
-| + getExameById(Long id) : Exame |
-| + createExame(Exame exame) : Exame |
-| + updateExame(Long id, Exame exame) : Exame |
-| + deleteExame(Long id) : ResponseEntity<Void> |
-+---------------------------------+
-
-+---------------------------------+
-|       ClinicaController        |
-+---------------------------------+
-| - clinicaService: ClinicaService |
-+---------------------------------+
-| + getAllClinicas() : List<Clinica> |
-| + getClinicaById(Long id) : Clinica |
-| + createClinica(Clinica clinica) : Clinica |
-| + updateClinica(Long id, Clinica clinica) : Clinica |
-| + deleteClinica(Long id) : ResponseEntity<Void> |
-+---------------------------------+
-
-+---------------------------------+
-|       DescontoController       |
-+---------------------------------+
-| - descontoService: DescontoService |
-+---------------------------------+
-| + getAllDescontos() : List<Desconto> |
-| + getDescontoById(Long id) : Desconto |
-| + createDesconto(Desconto desconto) : Desconto |
-| + updateDesconto(Long id, Desconto desconto) : Desconto |
-| + deleteDesconto(Long id) : ResponseEntity<Void> |
+| - List<Exame> findByTipoExame(String tipoExame)
 +---------------------------------+

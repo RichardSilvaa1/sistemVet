@@ -5,9 +5,12 @@ import java.math.BigDecimal;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 
@@ -27,6 +30,11 @@ public class Exame implements Serializable {
 
   @Column(nullable = false)
   private BigDecimal valorExame;
+
+  // Mapeamento da relação com a entidade Atendimento
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "atendimento_id") // Nome da coluna na tabela exame que referencia o atendimento
+    private Atendimento atendimento;
 
 
   public Exame(){

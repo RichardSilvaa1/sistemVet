@@ -23,7 +23,7 @@ import com.sistem.sisvet.Entities.Atendimento;
 import com.sistem.sisvet.Service.AtendimentoService;
 
 @RestController
-@RequestMapping("/atendimentos")
+@RequestMapping("/atendimentos") // Mapeamento da URL base para este controlador
 public class atendimentoController{
 
     @Autowired
