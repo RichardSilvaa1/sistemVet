@@ -22,50 +22,62 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+// Entidade JPA que representa um Atendimento
 @Entity
-@Table(name = "atendimentos")
+@Table(name = "atendimento")
 public class Atendimento implements Serializable {
 
+  // Identificador único do atendimento (chave primária)
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  // Clínica associada ao atendimento (muitos atendimentos para uma clínica)
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "clinica_id")
   private Clinica clinica;
 
+  // Nome do paciente
   @Column(nullable = true)
   private String paciente;
 
+  // Data e hora do atendimento
   @Column(nullable = false)
   private LocalDateTime dataAtendimento;
 
+  // Exames relacionados ao atendimento (um atendimento pode ter vários exames)
   @OneToMany(mappedBy = "atendimento", cascade = CascadeType.ALL)
   private List<Exame> exames;
 
+  // Forma de pagamento utilizada
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
   private FormaPagamento formaPagamento;
 
+  // Turno do atendimento (manhã, tarde, noite)
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
   private Turno turno;
 
+  // Valor total do atendimento
   @Column(nullable = false)
   private BigDecimal totalAtendimento;
 
+  // Valor total da nota fiscal
   @Column(nullable = false)
-  private BigDecimal totalNf; // Novo campo para armazenar o valor do descontoNF
+  private BigDecimal totalNf;
 
+  // Valor do desconto Sound
   @Column(nullable = false)
-  private BigDecimal totalSound; // Novo campo para armazenar o valor do descontoSound
+  private BigDecimal totalSound;
 
+  // Valor do desconto do aluguel do aparelho
   @Column(nullable = false)
-  private BigDecimal aluguelAparelho;// desconto do aluguel aparelho
+  private BigDecimal aluguelAparelho;
 
+  // Valor total pago pelo cliente
   @Column(nullable = false)
   private BigDecimal totalVet;
-
   public Atendimento(){
     
   }

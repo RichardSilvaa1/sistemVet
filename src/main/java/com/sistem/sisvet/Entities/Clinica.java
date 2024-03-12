@@ -22,6 +22,10 @@ public class Clinica implements Serializable {
   @Column(nullable = false) // cria uma coluna e especifica que nao pode ter valores nulls
   private String nomeClinica;
 
+  public Clinica(){
+    
+  }
+
   public Clinica(Long id, String nomeClinica) {
     this.id = id;
     this.nomeClinica = nomeClinica;

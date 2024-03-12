@@ -16,6 +16,7 @@ import com.sistem.sisvet.Entities.Atendimento;
 import com.sistem.sisvet.Entities.Exame;
 import com.sistem.sisvet.Exceptions.DataInvalidaException;
 import com.sistem.sisvet.Repositories.AtendimentoRepository;
+import com.sistem.sisvet.Repositories.ExameRepository;
 
 @Service
 public class AtendimentoService {
@@ -26,18 +27,32 @@ public class AtendimentoService {
     @Autowired
     private final ComissaoVeterinarioService comissaoVerinarioService;
 
-    // Construtor
-    public AtendimentoService(AtendimentoRepository atendimentoRepository,
-                              ComissaoVeterinarioService comissaoVeterinarioService) {
-        this.atendimentoRepository = atendimentoRepository;
-        this.comissaoVerinarioService = comissaoVeterinarioService;
+    @Autowired
+    private ExameRepository exameRepository;
+
+    
+public AtendimentoService(AtendimentoRepository atendimentoRepository,
+        ComissaoVeterinarioService comissaoVerinarioService, ExameRepository exameRepository) {
+      this.atendimentoRepository = atendimentoRepository;
+      this.comissaoVerinarioService = comissaoVerinarioService;
+      this.exameRepository = exameRepository;
     }
 
-      // Salva um novo atendimento após validar e calcular valores
+// Salva um novo atendimento após validar e calcular valores
 public Atendimento saveAtendimento(Atendimento atendimento) throws BadRequestException {
   validarAtendimento(atendimento);
   atendimento.setTotalAtendimento(calcularValorTotalAtendimento(atendimento));
   atendimento.setTotalAtendimento(comissaoVerinarioService.calcularValorVeterinarioRecebe(atendimento));
+  
+  // Verifica se existem exames associados ao atendimento
+  if (atendimento.getExames() != null && !atendimento.getExames().isEmpty()) {
+      // Salva cada exame associado ao atendimento
+      for (Exame exame : atendimento.getExames()) {
+          exame.setAtendimento(atendimento);
+          exameRepository.save(exame);
+      }
+  }
+  
   return atendimentoRepository.save(atendimento);
 }
 

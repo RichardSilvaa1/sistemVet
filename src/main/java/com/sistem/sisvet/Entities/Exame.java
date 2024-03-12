@@ -41,15 +41,14 @@ public class Exame implements Serializable {
     
   }
 
-  
 
 
-  public Exame(Long id, String tipoExame, BigDecimal valorExame) {
+  public Exame(Long id, String tipoExame, BigDecimal valorExame, Atendimento atendimento) {
     this.id = id;
     this.tipoExame = tipoExame;
     this.valorExame = valorExame;
+    this.atendimento = atendimento;
   }
-
 
 
 
@@ -59,11 +58,9 @@ public class Exame implements Serializable {
 
 
 
-
   public Long getId() {
     return id;
   }
-
 
 
 
@@ -73,11 +70,9 @@ public class Exame implements Serializable {
 
 
 
-
   public String getTipoExame() {
     return tipoExame;
   }
-
 
 
 
@@ -87,11 +82,9 @@ public class Exame implements Serializable {
 
 
 
-
   public BigDecimal getValorExame() {
     return valorExame;
   }
-
 
 
 
@@ -99,6 +92,17 @@ public class Exame implements Serializable {
     this.valorExame = valorExame;
   }
 
+
+
+  public Atendimento getAtendimento() {
+    return atendimento;
+  }
+
+
+
+  public void setAtendimento(Atendimento atendimento) {
+    this.atendimento = atendimento;
+  }
 
 
 
